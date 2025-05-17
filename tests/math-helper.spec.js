@@ -1,4 +1,4 @@
-import { MathHelper } from "../src/math-helper";
+import { MathHelper } from "../lib/math-helper";
 
 describe("MathHelper", function () {
   it("should pad number with zero in case it has only one digit", function () {

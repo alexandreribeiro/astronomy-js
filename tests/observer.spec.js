@@ -1,15 +1,15 @@
-import { Earth } from "../src/solar-system-objects/planets/earth";
-import { Mars } from "../src/solar-system-objects/planets/mars";
-import { Sun } from "../src/solar-system-objects/sun";
-import { SphericalCoordinates } from "../src/coordinates/spherical-coordinates";
-import { Observer } from "../src/observer";
-import { Constants } from "../src/constants";
+import { Earth } from "../lib/solar-system-objects/planets/earth";
+import { Mars } from "../lib/solar-system-objects/planets/mars";
+import { Sun } from "../lib/solar-system-objects/sun";
+import { SphericalCoordinates } from "../lib/coordinates/spherical-coordinates";
+import { AstronomicalCalculator } from "../lib/astronomical-calculator.js";
+import { Constants } from "../lib/constants";
 
 describe("Observer", function () {
   const earth = new Earth();
   const mars = new Mars();
   const sun = new Sun();
-  const greenwichObserver = new Observer(
+  const greenwichObserver = new AstronomicalCalculator(
     new SphericalCoordinates(
       Constants.GREENWICH_OBSERVATORY_COORDINATES.LATITUDE,
       Constants.GREENWICH_OBSERVATORY_COORDINATES.LONGITUDE,
@@ -18,7 +18,7 @@ describe("Observer", function () {
     earth,
   );
 
-  const kirunaObserver = new Observer(
+  const kirunaObserver = new AstronomicalCalculator(
     new SphericalCoordinates(67.85, 20.21, Constants.KIRUNA_COORDINATES.RADIUS),
     earth,
   );

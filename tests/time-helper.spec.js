@@ -1,5 +1,5 @@
-import { TimeHelper } from "../src/time-helper";
-import { Constants } from "../src/constants";
+import { TimeHelper } from "../lib/time-helper";
+import { Constants } from "../lib/constants";
 
 describe("TimeHelper", function () {
   it("should calculate julian date in epoch day zero correctly", function () {

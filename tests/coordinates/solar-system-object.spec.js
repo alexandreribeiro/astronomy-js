@@ -1,6 +1,6 @@
-import { OrbitalParameters } from "../../src/solar-system-objects/orbital-parameters";
-import { SolarSystemObject } from "../../src/solar-system-objects/solar-system-object";
-import { Constants } from "../../src/constants";
+import { OrbitalParameters } from "../../lib/solar-system-objects/orbital-parameters";
+import { SolarSystemObject } from "../../lib/solar-system-objects/solar-system-object";
+import { Constants } from "../../lib/constants";
 
 describe("SolarSystemObject", function () {
   const orbitalParameters = new OrbitalParameters(

@@ -151,6 +151,8 @@
     const solarSystemObjectsToDisplay = ["Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"];
     const solarSystemTable = document.getElementById("solar-system-table");
     let javascriptIntervalForUpdatingAstronomicalData = null;
+    let initialPosition = [51.477335, -0.000874];
+    let astronomyJs = AstronomyJS.initialize(initialPosition[0], initialPosition[1]);
     updateTime(true);
 
     const mapHandler = {
@@ -184,7 +186,7 @@
         },
     }
 
-    let initialPosition = [51.477335, -0.000874];
+
     document.getElementById("latitude").value = initialPosition[0];
     document.getElementById("longitude").value = initialPosition[1];
     mapHandler.initializeMap(initialPosition);
@@ -217,11 +219,11 @@
         javascriptIntervalForUpdatingAstronomicalData = null;
         if (updateTimeAutomatically) {
             javascriptIntervalForUpdatingAstronomicalData = window.setInterval(function () {
-                AstronomyJS.setDate(new Date());
+                astronomyJs.setDate(new Date());
                 updateAstronomicalData();
             }, 1000);
         } else {
-            AstronomyJS.setDate(getDateFromTimeTable());
+            astronomyJs.setDate(getDateFromTimeTable());
             updateAstronomicalData();
         }
     }
@@ -230,15 +232,15 @@
         while (solarSystemTable.rows.length > 1) {
             solarSystemTable.deleteRow(1);
         }
-        updateTimeTable(AstronomyJS.getDate());
+        updateTimeTable(astronomyJs.getDate());
         for (let i in solarSystemObjectsToDisplay) {
-            var objectName = solarSystemObjectsToDisplay[i];
-            var altAzCoordinates = AstronomyJS.getAltAzCoordinatesForObject(objectName).toDegrees();
-            var raDecCoordinates = AstronomyJS.getRADecCoordinatesForObject(objectName).toHours();
-            var tableValues = [objectName, altAzCoordinates.latitude, altAzCoordinates.longitude, raDecCoordinates.longitude, raDecCoordinates.latitude];
-            var row = document.createElement("tr");
+            const objectName = solarSystemObjectsToDisplay[i];
+            let altAzCoordinates = astronomyJs.getAltAzCoordinatesForObject(objectName).toDegrees();
+            let raDecCoordinates = astronomyJs.getRADecCoordinatesForObject(objectName).toHours();
+            const tableValues = [objectName, altAzCoordinates.latitude, altAzCoordinates.longitude, raDecCoordinates.longitude, raDecCoordinates.latitude];
+            let row = document.createElement("tr");
             for (i in tableValues) {
-                var column = document.createElement("td");
+                const column = document.createElement("td");
                 column.appendChild(document.createTextNode(tableValues[i]));
                 row.appendChild(column);
             }
@@ -270,7 +272,7 @@
         let latitude = document.getElementById("latitude").value;
         let longitude = document.getElementById("longitude").value;
         mapHandler.updateMap([latitude, longitude]);
-        AstronomyJS.setObserverLocation('Earth', parseFloat(latitude), parseFloat(longitude), 46);
+        astronomyJs.setLocation('Earth', parseFloat(latitude), parseFloat(longitude), 46);
     }
 
 </script>
