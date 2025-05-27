@@ -1,12 +1,13 @@
 {
   "name": "astronomyjs",
-  "version": "0.1.6",
-  "description": "A lightweight javascript library with astronomical calculations.",
+  "version": "0.1.8",
+  "description": "A lightweight javascript library for astronomical calculations.",
   "main": "index.js",
   "files": [
     "/dist",
     "/lib",
     "README.md",
+    "LICENSE",
     "index.js",
     "index.d.ts"
   ],
@@ -18,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexandreribeiro/astronomy.js.git"
+    "url": "git+https://github.com/alexandreribeiro/astronomy-js.git"
   },
   "type": "module",
   "keywords": [
@@ -33,11 +34,11 @@
     "mars"
   ],
   "author": "Alexandre Ribeiro",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alexandreribeiro/astronomy.js/issues"
+    "url": "https://github.com/alexandreribeiro/astronomy-js/issues"
   },
-  "homepage": "https://github.com/alexandreribeiro/astronomy.js#readme",
+  "homepage": "https://github.com/alexandreribeiro/astronomy-js#readme",
   "devDependencies": {
     "eslint": "^9.20.1",
     "eslint-config-prettier": "^10.0.1",
@@ -45,6 +46,7 @@
     "prettier": "^3.5.0",
     "prettier-eslint": "^16.3.0",
     "vite": "^6.1.1",
+    "vite-plugin-banner": "^0.8.1",
     "vitest": "^3.0.6"
   }
 }

@@ -1,9 +1,13 @@
 import { defineConfig } from "vite";
+import banner from "vite-plugin-banner";
+import fs from "fs";
+
+const licenseBanner = fs.readFileSync("./LICENSE", "utf8");
 
 export default defineConfig({
   build: {
     lib: {
-      entry: "src/index.js",
+      entry: "index.js",
       name: "AstronomyJS",
       formats: ["iife", "es"],
       fileName: (format) =>
@@ -16,4 +20,5 @@ export default defineConfig({
       },
     },
   },
+  plugins: [banner(licenseBanner)],
 });

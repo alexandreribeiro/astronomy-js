@@ -5,13 +5,13 @@ AstronomyJS
 [![Coverage Status](https://coveralls.io/repos/github/alexandreribeiro/astronomy.js/badge.svg?branch=master&service=github)](https://coveralls.io/github/alexandreribeiro/astronomy.js?branch=master)
 
 Astronomical calculations in JavaScript.
-You can see this project running at: <https://rawgit.com/alexandreribeiro/astronomy.js/master/sample.html>
+You can see this project running at: <https://rawgit.com/alexandreribeiro/astronomyjs/master/sample.html>
 
 ## Quick Start
 
 ```javascript
 // latitude, longitude
-var astronomyJS = AstronomyJS.initialize(56.2, 18.1)
+let astronomyJS = AstronomyJS.initialize(56.2, 18.1)
 // Sun, Mercury, Venus, etc.
 astronomyJS.getAltAzCoordinatesForObject('Sun');
 ```

@@ -4,7 +4,7 @@ import { SphericalCoordinates } from "./lib/coordinates/spherical-coordinates.js
 import { SOLAR_SYSTEM_OBJECTS_LIST } from "./lib/solar-system-objects/solar-system-objects-list.js";
 import { Constants } from "./lib/constants.js";
 
-class AstronomyJS {
+export class AstronomyJS {
   constructor() {
     this.skyObjects = [...SOLAR_SYSTEM_OBJECTS_LIST];
     this.astronomicalCalculator = new AstronomicalCalculator();
@@ -105,7 +105,7 @@ class AstronomyJS {
     );
   }
 
-  initialize(latitude, longitude) {
+  static initialize(latitude, longitude) {
     let astronomyJS = new AstronomyJS();
     astronomyJS.setLocation("Earth", latitude, longitude, 0);
     astronomyJS.setDate(new Date());
