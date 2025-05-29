@@ -1,6 +1,0 @@
-node_modules/
-dist/
-.coverage/
-package-lock.json
-.release-it.json
-.idea
