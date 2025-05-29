@@ -4,3 +4,4 @@ dist/
 package-lock.json
 .release-it.json
 .idea
+docs/
