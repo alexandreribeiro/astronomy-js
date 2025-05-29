@@ -129,8 +129,5 @@ export class AstronomyJS {
 }
 
 export function initialize(latitude, longitude) {
-  let astronomyJS = new AstronomyJS();
-  astronomyJS.setLocation("Earth", latitude, longitude, 0);
-  astronomyJS.setDate(new Date());
-  return astronomyJS;
+  return AstronomyJS.initialize(latitude, longitude);
 }

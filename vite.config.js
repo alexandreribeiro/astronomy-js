@@ -6,12 +6,13 @@ const licenseBanner = fs.readFileSync("./LICENSE", "utf8");
 
 export default defineConfig({
   build: {
+    base: "/astronomy-js/",
     lib: {
       entry: "index.js",
       name: "AstronomyJS",
       formats: ["iife", "es"],
       fileName: (format) =>
-        format === "iife" ? "astronomy.min.js" : `astronomy.${format}.js`,
+        format === "iife" ? "astronomy-js.min.js" : `astronomy-js.${format}.js`,
     },
     rollupOptions: {
       external: [],

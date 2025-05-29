@@ -9,8 +9,19 @@ You can see this project running at: <https://alexandreribeiro.github.io/astrono
 See an interactive demonstration in the `/demo` folder.
 
 ## Quick Start
+Importing minified JavaScript in html
 
 ```javascript
+<script type="text/javascript" src="astronomy-js.min.js"></script>
+// latitude, longitude
+let astronomyJS = AstronomyJS.initialize(56.2, 18.1)
+// Sun, Mercury, Venus, etc.
+astronomyJS.getAltAzCoordinatesForObject('Sun');
+```
+
+Using ES Module
+```javascript
+import { AstronomyJS } from "astronomy-js.es.js";
 // latitude, longitude
 let astronomyJS = AstronomyJS.initialize(56.2, 18.1)
 // Sun, Mercury, Venus, etc.
