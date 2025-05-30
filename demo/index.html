@@ -20,27 +20,6 @@
             --pico-font-size: 100% !important;
         }
 
-        .example-tile {
-            display: grid;
-            grid-template-rows: auto auto;
-            margin-bottom: 1rem;
-        }
-
-        .example-tile .card-image {
-            grid-row: 1 / span 2;
-        }
-
-        .example-tile .card-title {
-            padding-left: 1rem;
-            font-weight: bold;
-            grid-column: 2;
-        }
-
-        .example-tile .card-text {
-            padding-left: 1rem;
-            grid-column: 2;
-        }
-
         #timeLabel {
             width: 5rem;
         }
@@ -226,13 +205,15 @@
 
     function updateTimeToNow() {
         const now = new Date();
+        datePicker.value = now.toISOString().slice(0, 10);
         const nowMinutes = getMinutesSinceMidnight(now);
         timeRange.value = nowMinutes;
         timeLabel.textContent = minutesToHHMM(nowMinutes);
         updateAllTilesWithTime(now);
     }
 
-    nowButton.addEventListener('click', () => {
+    nowButton.addEventListener('click', (event) => {
+        event.preventDefault();
         updateTimeToNow();
     });
     timeRange.addEventListener('input', () => {
