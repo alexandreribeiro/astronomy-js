@@ -110,7 +110,7 @@ class r {
     return t = t.toString(), t.length >= 2 ? t : "0" + t;
   }
 }
-class u {
+class d {
   static julianDate(t) {
     return t / l.MS_PER_DAY + l.JULIAN_DAY_OFFSET;
   }
@@ -142,13 +142,13 @@ class E {
     );
   }
 }
-class d {
+class T {
   constructor(t, e, s) {
     this.latitude = t, this.longitude = e, this.radius = s;
   }
   toDegrees() {
     let t = this.latitude, e = this.longitude;
-    return new d(
+    return new T(
       `${t < 0 ? "-" : ""}${r.padZero(0 | (t < 0 ? t = -t : t))}° ${r.padZero(0 | t % 1 * 60)}' ${r.padZero(0 | t * 60 % 1 * 60)}''`,
       `${e < 0 ? "-" : ""}${r.padZero(0 | (e < 0 ? e = -e : e))}° ${r.padZero(0 | e % 1 * 60)}' ${r.padZero(0 | e * 60 % 1 * 60)}''`,
       this.radius
@@ -156,7 +156,7 @@ class d {
   }
   toHours() {
     let t = this.latitude, e = this.longitude;
-    return new d(
+    return new T(
       `${t < 0 ? "-" : ""}${r.padZero(0 | (t < 0 ? t = -t : t))}° ${r.padZero(0 | t % 1 * 60)}' ${r.padZero(0 | t * 60 % 1 * 60)}''`,
       `${e < 0 ? "-" : ""}${r.padZero(0 | (e < 0 ? e = -e / 15 : e = e / 15))}h ${r.padZero(0 | e % 1 * 60)}m ${r.padZero(0 | e * 60 % 1 * 60)}s`,
       this.radius
@@ -165,7 +165,7 @@ class d {
 }
 class O {
   constructor(t, e) {
-    this.sphericalCoordinates = t || new d(
+    this.sphericalCoordinates = t || new T(
       l.GREENWICH_OBSERVATORY_COORDINATES.LATITUDE,
       l.GREENWICH_OBSERVATORY_COORDINATES.LONGITUDE,
       l.GREENWICH_OBSERVATORY_COORDINATES.RADIUS
@@ -213,7 +213,7 @@ class O {
         )
       )
     );
-    return new d(
+    return new T(
       n,
       o,
       this.getDistanceToSolarSystemObject(t, e)
@@ -234,7 +234,7 @@ class O {
         )
       )
     );
-    return new d(
+    return new T(
       c,
       n,
       this.getDistanceToSolarSystemObject(t, e)
@@ -259,11 +259,11 @@ class O {
         Math.cos(s) * Math.sin(a) - Math.tan(o) * Math.cos(a)
       )
     );
-    return new d(n, c, null);
+    return new T(n, c, null);
   }
   getLocalSiderealTime(t) {
     return r.modDegrees(
-      u.meanSiderealTime(t) + this.sphericalCoordinates.longitude
+      d.meanSiderealTime(t) + this.sphericalCoordinates.longitude
     );
   }
   getObjectTransit(t, e) {
@@ -313,7 +313,7 @@ class O {
       s
     ), !(Math.abs(a - o) < 10 ^ -5)); n++)
       o = a;
-    return u.julianDateToDate(a);
+    return d.julianDateToDate(a);
   }
   getCorrectDateForPositionalEphemeris(t, e, s, a) {
     const o = this.iteratePositionalEphemerisForObject(
@@ -321,8 +321,8 @@ class O {
       e,
       s
     );
-    if (a > 0 && o.getDate() !== u.julianDateToDate(e).getDate()) {
-      const n = u.julianDate(o), c = n > e ? -1 : 1;
+    if (a > 0 && o.getDate() !== d.julianDateToDate(e).getDate()) {
+      const n = d.julianDate(o), c = n > e ? -1 : 1;
       return this.getCorrectDateForPositionalEphemeris(
         t,
         n + c,
@@ -354,7 +354,7 @@ class h extends D {
    * @returns {RectangularCoordinates}
    */
   getRectangularHeliocentricCoordinates(t) {
-    const e = u.julianCenturiesSinceEpoch2000(t), s = r.degreesToRadians(
+    const e = d.julianCenturiesSinceEpoch2000(t), s = r.degreesToRadians(
       this.orbitalParameters.getInclination(e)
     ), a = r.degreesToRadians(
       this.orbitalParameters.getTrueAnomaly(e)
@@ -368,7 +368,7 @@ class h extends D {
     return new E(A, I, S);
   }
 }
-class T {
+class u {
   /**
    * @constructor
    * @param a0 semi-major axis (AU)
@@ -464,7 +464,7 @@ class T {
 }
 class R extends h {
   constructor() {
-    const t = new T(
+    const t = new u(
       0.38709893,
       0.20563069,
       7.00487,
@@ -483,7 +483,7 @@ class R extends h {
 }
 class _ extends h {
   constructor() {
-    const t = new T(
+    const t = new u(
       0.72333199,
       677323e-8,
       3.39471,
@@ -502,7 +502,7 @@ class _ extends h {
 }
 class b extends h {
   constructor() {
-    const t = new T(
+    const t = new u(
       1.00000011,
       0.01671022,
       5e-5,
@@ -521,7 +521,7 @@ class b extends h {
 }
 class y extends h {
   constructor() {
-    const t = new T(
+    const t = new u(
       1.52366231,
       0.09341233,
       1.85061,
@@ -540,7 +540,7 @@ class y extends h {
 }
 class C extends h {
   constructor() {
-    const t = new T(
+    const t = new u(
       5.20336301,
       0.04839266,
       1.3053,
@@ -559,7 +559,7 @@ class C extends h {
 }
 class N extends h {
   constructor() {
-    const t = new T(
+    const t = new u(
       9.53707032,
       0.0541506,
       2.48446,
@@ -576,9 +576,9 @@ class N extends h {
     super("Saturn", t, 58232e3, 26.73);
   }
 }
-class j extends h {
+class P extends h {
   constructor() {
-    const t = new T(
+    const t = new u(
       19.19126393,
       0.04716771,
       0.76986,
@@ -595,9 +595,9 @@ class j extends h {
     super("Uranus", t, 25362e3, 97.77);
   }
 }
-class P extends h {
+class j extends h {
   constructor() {
-    const t = new T(
+    const t = new u(
       30.06896348,
       858587e-8,
       1.76917,
@@ -621,10 +621,30 @@ const L = [
   new y(),
   new C(),
   new N(),
-  new j(),
-  new P()
+  new P(),
+  new j()
 ];
 class w extends h {
+  constructor() {
+    const t = new u(
+      39.48168677,
+      0.24880766,
+      17.14175,
+      110.30347,
+      113.76329,
+      238.92881,
+      -207e-10,
+      6465e-8,
+      501e-8,
+      -37.033,
+      7.765,
+      145.2078
+    );
+    super("Pluto", t, 1188300, 122.53);
+  }
+}
+const p = [new w()];
+class U extends h {
   constructor() {
     super("Sun", null, 695508e3);
   }
@@ -632,10 +652,10 @@ class w extends h {
     return new E(0, 0, 0);
   }
 }
-const p = [new w()].concat(L);
+const F = [new U()].concat(L).concat(p);
 class M {
   constructor() {
-    this.skyObjects = [...p], this.astronomicalCalculator = new O(), this.julianDate = null, this.date = null;
+    this.skyObjects = [...F], this.astronomicalCalculator = new O(), this.julianDate = null, this.date = null;
   }
   getJulianDate() {
     return this.julianDate;
@@ -647,7 +667,7 @@ class M {
     return this.date;
   }
   setDate(t) {
-    this.date = t, this.setJulianDate(u.julianDate(t));
+    this.date = t, this.setJulianDate(d.julianDate(t));
   }
   getSkyObjectByName(t) {
     return this.skyObjects.find((e) => e.name === t) || null;
@@ -662,7 +682,7 @@ class M {
     if (!o)
       throw new Error(`Solar system object "${t}" not found`);
     this.astronomicalCalculator = new O(
-      new d(
+      new T(
         e,
         s,
         o.meanRadius + a
@@ -692,7 +712,7 @@ class M {
     const s = this.getSkyObjectByName(t);
     if (!s)
       throw new Error(`Object "${t}" not found`);
-    const a = e ? u.julianDate(e) : this.julianDate;
+    const a = e ? d.julianDate(e) : this.julianDate;
     if (a === null)
       throw new Error("Reference date not set");
     const o = this.astronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
@@ -714,15 +734,15 @@ class M {
       throw new Error("Invalid object name or ephemeris type");
     return this.astronomicalCalculator.getDateForPositionalEphemeris(
       a,
-      u.julianDate(e),
+      d.julianDate(e),
       o
     );
   }
 }
-function U(i, t) {
+function G(i, t) {
   return M.initialize(i, t);
 }
 export {
   M as AstronomyJS,
-  U as initialize
+  G as initialize
 };
