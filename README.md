@@ -58,12 +58,15 @@ This project is licensed under the MIT License — feel free to use, modify, and
 Please make sure to retain the original license and attribution when reusing or modifying the code.  
 See the [LICENSE](./LICENSE) file for full details.
 
-## About
+## 🌌 About
 
 This library provides astronomical calculations for leisure purposes only.
 Some important basic aspects are not implemented, such as:
 - Atmospheric refraction
 - Orbit perturbations
 
-## References
+ 
+![View Demo](images/icon.png)
+
+## 📚 References
 US Naval Observatory, Explanatory Supplement to the Astronomical Almanac, 1992
