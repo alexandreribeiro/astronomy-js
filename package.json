@@ -1,6 +1,6 @@
 {
-  "name": "astronomyjs",
-  "version": "0.1.8",
+  "name": "astronomy-js",
+  "version": "0.1.2",
   "description": "A lightweight javascript library for astronomical calculations.",
   "main": "index.js",
   "files": [
@@ -17,7 +17,7 @@
     "test": "vitest --run",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepare-docs": "npm run build && rm -rf docs && mkdir docs && mkdir docs/dist && cp -r dist/* docs/dist/ && cp README.md docs/ && cp -r demo docs/"
+    "prepare-docs": "npm run build && rm -rf docs && mkdir docs && mkdir docs/dist && cp -r dist/* docs/dist/ && cp README.md docs/readme.md && cp -r demo docs/ && cp -r images docs/"
   },
   "repository": {
     "type": "git",

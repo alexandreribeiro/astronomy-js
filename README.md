@@ -41,12 +41,12 @@ astronomyJS.getAltAzCoordinatesForObject("Sun");
 ### 🌟 Installation (npm)
 
 ```bash
-npm install astronomyjs
+npm install astronomy-js
 ```
 
 #### Using the JavaScript ES Module
 ```javascript
-import { AstronomyJS } from "astronomyjs";
+import { AstronomyJS } from "astronomy-js";
 // latitude, longitude
 let astronomyJS = AstronomyJS.initialize(56.2, 18.1)
 astronomyJS.getAltAzCoordinatesForObject("Sun");

@@ -1,7 +1,7 @@
 import { AstronomicalCalculator } from "./lib/astronomical-calculator.js";
 import { SOLAR_SYSTEM_OBJECTS_LIST } from "./lib/solar-system-objects/solar-system-objects-list";
 
-declare module "astronomyjs" {
+declare module "astronomy-js" {
 
   export class AstronomyJS {
     skyObjects: typeof SOLAR_SYSTEM_OBJECTS_LIST;
