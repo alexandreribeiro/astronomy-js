@@ -31,6 +31,12 @@ describe("AstronomyEngine", function () {
     expect(astronomicalCalculator.sphericalCoordinates.latitude).toBe(0);
     expect(astronomicalCalculator.sphericalCoordinates.longitude).toBe(0);
   });
+  it("should get observer location", function () {
+    observer.setLocation("Mars", 10, 20, 0);
+    let coordinates = observer.getLatitudeLongitudeCoordinates();
+    expect(coordinates.latitude).toBe(10);
+    expect(coordinates.longitude).toBe(20);
+  });
   it("should get right ascension and declination for sun in epoch J2000", function () {
     const raDec = observer.getRADecCoordinatesForObject("Sun");
     expect(raDec.latitude).toBeCloseTo(-23.03, 2);

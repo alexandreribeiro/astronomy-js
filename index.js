@@ -57,6 +57,13 @@ export class AstronomyJS {
     );
   }
 
+  getLatitudeLongitudeCoordinates() {
+    return {
+      latitude: this.astronomicalCalculator.sphericalCoordinates.latitude,
+      longitude: this.astronomicalCalculator.sphericalCoordinates.longitude,
+    };
+  }
+
   getRADecCoordinatesForObject(objectName) {
     const skyObject = this.getSkyObjectByName(objectName);
     if (!skyObject || this.julianDate === null) {

@@ -30,6 +30,8 @@ declare module "astronomy-js" {
       elevationFromObjectSurface: number
     ): void;
 
+    getLatitudeLongitudeCoordinates(): { latitude: number; longitude: number };
+
     static initialize(latitude: number, longitude: number): AstronomyJS;
 
     getRADecCoordinatesForObject(objectName: string): any;
