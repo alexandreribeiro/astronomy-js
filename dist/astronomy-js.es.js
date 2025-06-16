@@ -163,7 +163,7 @@ class T {
     );
   }
 }
-class O {
+class M {
   constructor(t, e) {
     this.sphericalCoordinates = t || new T(
       l.GREENWICH_OBSERVATORY_COORDINATES.LATITUDE,
@@ -345,7 +345,7 @@ class D {
     this.objectType = t, this.name = e;
   }
 }
-class h extends D {
+class u extends D {
   constructor(t, e, s, a) {
     super(l.SOLAR_SYSTEM_OBJECT, t), this.orbitalParameters = e, this.meanRadius = s, this.axialTilt = a;
   }
@@ -368,7 +368,7 @@ class h extends D {
     return new E(A, I, S);
   }
 }
-class u {
+class h {
   /**
    * @constructor
    * @param a0 semi-major axis (AU)
@@ -384,8 +384,8 @@ class u {
    * @param wc longitude of perihelion (arc seconds per Julian century)
    * @param lc mean longitude (arc seconds per Julian century)
    */
-  constructor(t, e, s, a, o, n, c, g, A, I, S, m) {
-    this.a0 = t, this.e0 = e, this.i0 = s, this.o0 = a, this.w0 = o, this.l0 = n, this.ac = c, this.ec = g, this.ic = A, this.oc = I, this.wc = S, this.lc = m;
+  constructor(t, e, s, a, o, n, c, g, A, I, S, O) {
+    this.a0 = t, this.e0 = e, this.i0 = s, this.o0 = a, this.w0 = o, this.l0 = n, this.ac = c, this.ec = g, this.ic = A, this.oc = I, this.wc = S, this.lc = O;
   }
   /**
    * @param julianCenturiesSinceEpoch2000
@@ -462,9 +462,9 @@ class u {
     return e * (1 - Math.pow(s, 2)) / (1 + s * Math.cos(r.degreesToRadians(a)));
   }
 }
-class R extends h {
+class R extends u {
   constructor() {
-    const t = new u(
+    const t = new h(
       0.38709893,
       0.20563069,
       7.00487,
@@ -481,9 +481,9 @@ class R extends h {
     super("Mercury", t, 2439700, 2.04);
   }
 }
-class _ extends h {
+class _ extends u {
   constructor() {
-    const t = new u(
+    const t = new h(
       0.72333199,
       677323e-8,
       3.39471,
@@ -500,9 +500,9 @@ class _ extends h {
     super("Venus", t, 6051800, 2.64);
   }
 }
-class b extends h {
+class C extends u {
   constructor() {
-    const t = new u(
+    const t = new h(
       1.00000011,
       0.01671022,
       5e-5,
@@ -519,9 +519,9 @@ class b extends h {
     super("Earth", t, 6371e3, 23.439281);
   }
 }
-class y extends h {
+class b extends u {
   constructor() {
-    const t = new u(
+    const t = new h(
       1.52366231,
       0.09341233,
       1.85061,
@@ -538,9 +538,9 @@ class y extends h {
     super("Mars", t, 3389500, 25.19);
   }
 }
-class C extends h {
+class y extends u {
   constructor() {
-    const t = new u(
+    const t = new h(
       5.20336301,
       0.04839266,
       1.3053,
@@ -557,9 +557,9 @@ class C extends h {
     super("Jupiter", t, 69911e3, 3.13);
   }
 }
-class N extends h {
+class N extends u {
   constructor() {
-    const t = new u(
+    const t = new h(
       9.53707032,
       0.0541506,
       2.48446,
@@ -576,9 +576,9 @@ class N extends h {
     super("Saturn", t, 58232e3, 26.73);
   }
 }
-class P extends h {
+class P extends u {
   constructor() {
-    const t = new u(
+    const t = new h(
       19.19126393,
       0.04716771,
       0.76986,
@@ -595,9 +595,9 @@ class P extends h {
     super("Uranus", t, 25362e3, 97.77);
   }
 }
-class j extends h {
+class j extends u {
   constructor() {
-    const t = new u(
+    const t = new h(
       30.06896348,
       858587e-8,
       1.76917,
@@ -617,16 +617,16 @@ class j extends h {
 const L = [
   new R(),
   new _(),
+  new C(),
   new b(),
   new y(),
-  new C(),
   new N(),
   new P(),
   new j()
 ];
-class w extends h {
+class w extends u {
   constructor() {
-    const t = new u(
+    const t = new h(
       39.48168677,
       0.24880766,
       17.14175,
@@ -644,7 +644,7 @@ class w extends h {
   }
 }
 const p = [new w()];
-class U extends h {
+class U extends u {
   constructor() {
     super("Sun", null, 695508e3);
   }
@@ -653,9 +653,9 @@ class U extends h {
   }
 }
 const F = [new U()].concat(L).concat(p);
-class M {
+class m {
   constructor() {
-    this.skyObjects = [...F], this.astronomicalCalculator = new O(), this.julianDate = null, this.date = null;
+    this.skyObjects = [...F], this.astronomicalCalculator = new M(), this.julianDate = null, this.date = null;
   }
   getJulianDate() {
     return this.julianDate;
@@ -681,7 +681,7 @@ class M {
     const o = this.getSkyObjectByName(t);
     if (!o)
       throw new Error(`Solar system object "${t}" not found`);
-    this.astronomicalCalculator = new O(
+    this.astronomicalCalculator = new M(
       new T(
         e,
         s,
@@ -689,6 +689,12 @@ class M {
       ),
       o
     );
+  }
+  getLatitudeLongitudeCoordinates() {
+    return {
+      latitude: this.astronomicalCalculator.sphericalCoordinates.latitude,
+      longitude: this.astronomicalCalculator.sphericalCoordinates.longitude
+    };
   }
   getRADecCoordinatesForObject(t) {
     const e = this.getSkyObjectByName(t);
@@ -725,7 +731,7 @@ class M {
     );
   }
   static initialize(t, e) {
-    let s = new M();
+    let s = new m();
     return s.setLocation("Earth", t, e, 0), s.setDate(/* @__PURE__ */ new Date()), s;
   }
   getEphemerisDateForObject(t, e, s) {
@@ -740,9 +746,9 @@ class M {
   }
 }
 function G(i, t) {
-  return M.initialize(i, t);
+  return m.initialize(i, t);
 }
 export {
-  M as AstronomyJS,
+  m as AstronomyJS,
   G as initialize
 };
