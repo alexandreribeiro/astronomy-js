@@ -216,13 +216,70 @@ describe("Observer", function () {
     ).toContain("Sat, 01 Jan 2000 10:42");
   });
 
+  it("should calculate lower transit times correctly", function () {
+    expect(
+      greenwichObserver
+        .getDateForPositionalEphemeris(
+          sun,
+          Constants.JULIAN_DAY_2000 - 0.25,
+          Constants.EPHEMERIS_TYPE.LOWER_TRANSIT,
+        )
+        .toUTCString(),
+    ).toContain("Sat, 01 Jan 2000 00:03");
+    expect(
+      greenwichObserver
+        .getDateForPositionalEphemeris(
+          sun,
+          Constants.JULIAN_DAY_2000,
+          Constants.EPHEMERIS_TYPE.LOWER_TRANSIT,
+        )
+        .toUTCString(),
+    ).toContain("Sat, 01 Jan 2000 00:03");
+    expect(
+      greenwichObserver
+        .getDateForPositionalEphemeris(
+          sun,
+          Constants.JULIAN_DAY_2000 + 0.25,
+          Constants.EPHEMERIS_TYPE.LOWER_TRANSIT,
+        )
+        .toUTCString(),
+    ).toContain("Sat, 01 Jan 2000 00:03");
+    expect(
+      greenwichObserver
+        .getDateForPositionalEphemeris(
+          sun,
+          Constants.JULIAN_DAY_2000 + 0.5,
+          Constants.EPHEMERIS_TYPE.LOWER_TRANSIT,
+        )
+        .toUTCString(),
+    ).toContain("Sun, 02 Jan 2000 00:03");
+    expect(
+      greenwichObserver
+        .getDateForPositionalEphemeris(
+          mars,
+          Constants.JULIAN_DAY_2000 + 0.25,
+          Constants.EPHEMERIS_TYPE.LOWER_TRANSIT,
+        )
+        .toUTCString(),
+    ).toContain("Sat, 01 Jan 2000 03:20");
+    expect(
+      kirunaObserver
+        .getDateForPositionalEphemeris(
+          sun,
+          Constants.JULIAN_DAY_2000,
+          Constants.EPHEMERIS_TYPE.LOWER_TRANSIT,
+        )
+        .toUTCString(),
+    ).toContain("Sat, 01 Jan 2000 22:42");
+  });
+
   it("should calculate rise times correctly", function () {
     expect(
       greenwichObserver
         .getDateForPositionalEphemeris(
           sun,
           Constants.JULIAN_DAY_2000 - 0.25,
-          Constants.EPHEMERIS_TYPE.RISE,
+          Constants.EPHEMERIS_TYPE.SUNRISE,
         )
         .toUTCString(),
     ).toContain("Sat, 01 Jan 2000 08:05");
@@ -231,7 +288,7 @@ describe("Observer", function () {
         .getDateForPositionalEphemeris(
           sun,
           Constants.JULIAN_DAY_2000,
-          Constants.EPHEMERIS_TYPE.RISE,
+          Constants.EPHEMERIS_TYPE.SUNRISE,
         )
         .toUTCString(),
     ).toContain("Sat, 01 Jan 2000 08:05");
@@ -240,7 +297,7 @@ describe("Observer", function () {
         .getDateForPositionalEphemeris(
           sun,
           Constants.JULIAN_DAY_2000 + 0.25,
-          Constants.EPHEMERIS_TYPE.RISE,
+          Constants.EPHEMERIS_TYPE.SUNRISE,
         )
         .toUTCString(),
     ).toContain("Sat, 01 Jan 2000 08:05");
@@ -249,7 +306,7 @@ describe("Observer", function () {
         .getDateForPositionalEphemeris(
           sun,
           Constants.JULIAN_DAY_2000 + 0.5,
-          Constants.EPHEMERIS_TYPE.RISE,
+          Constants.EPHEMERIS_TYPE.SUNRISE,
         )
         .toUTCString(),
     ).toContain("Sun, 02 Jan 2000 08:05");
@@ -261,12 +318,12 @@ describe("Observer", function () {
           Constants.EPHEMERIS_TYPE.RISE,
         )
         .toUTCString(),
-    ).toContain("Sat, 01 Jan 2000 10:23");
+    ).toContain("Sat, 01 Jan 2000 10:28");
     expect(
       kirunaObserver.getDateForPositionalEphemeris(
         sun,
         Constants.JULIAN_DAY_2000,
-        Constants.EPHEMERIS_TYPE.RISE,
+        Constants.EPHEMERIS_TYPE.SUNRISE,
       ),
     ).toBeNull();
     expect(
@@ -274,7 +331,7 @@ describe("Observer", function () {
         .getDateForPositionalEphemeris(
           sun,
           Constants.JULIAN_DAY_2000 + 30,
-          Constants.EPHEMERIS_TYPE.RISE,
+          Constants.EPHEMERIS_TYPE.SUNRISE,
         )
         .toUTCString(),
     ).toContain("Mon, 31 Jan 2000 08:02");
@@ -286,7 +343,7 @@ describe("Observer", function () {
         .getDateForPositionalEphemeris(
           sun,
           Constants.JULIAN_DAY_2000 - 0.25,
-          Constants.EPHEMERIS_TYPE.SET,
+          Constants.EPHEMERIS_TYPE.SUNSET,
         )
         .toUTCString(),
     ).toContain("Sat, 01 Jan 2000 16:01");
@@ -295,7 +352,7 @@ describe("Observer", function () {
         .getDateForPositionalEphemeris(
           sun,
           Constants.JULIAN_DAY_2000,
-          Constants.EPHEMERIS_TYPE.SET,
+          Constants.EPHEMERIS_TYPE.SUNSET,
         )
         .toUTCString(),
     ).toContain("Sat, 01 Jan 2000 16:01");
@@ -304,7 +361,7 @@ describe("Observer", function () {
         .getDateForPositionalEphemeris(
           sun,
           Constants.JULIAN_DAY_2000 + 0.25,
-          Constants.EPHEMERIS_TYPE.SET,
+          Constants.EPHEMERIS_TYPE.SUNSET,
         )
         .toUTCString(),
     ).toContain("Sat, 01 Jan 2000 16:01");
@@ -313,7 +370,7 @@ describe("Observer", function () {
         .getDateForPositionalEphemeris(
           sun,
           Constants.JULIAN_DAY_2000 + 0.5,
-          Constants.EPHEMERIS_TYPE.SET,
+          Constants.EPHEMERIS_TYPE.SUNSET,
         )
         .toUTCString(),
     ).toContain("Sun, 02 Jan 2000 16:02");
@@ -325,12 +382,12 @@ describe("Observer", function () {
           Constants.EPHEMERIS_TYPE.SET,
         )
         .toUTCString(),
-    ).toContain("Sat, 01 Jan 2000 20:17");
+    ).toContain("Sat, 01 Jan 2000 20:12");
     expect(
       kirunaObserver.getDateForPositionalEphemeris(
         sun,
         Constants.JULIAN_DAY_2000,
-        Constants.EPHEMERIS_TYPE.SET,
+        Constants.EPHEMERIS_TYPE.SUNSET,
       ),
     ).toBeNull();
     expect(
@@ -338,7 +395,7 @@ describe("Observer", function () {
         .getDateForPositionalEphemeris(
           sun,
           Constants.JULIAN_DAY_2000 + 30,
-          Constants.EPHEMERIS_TYPE.SET,
+          Constants.EPHEMERIS_TYPE.SUNSET,
         )
         .toUTCString(),
     ).toContain("Mon, 31 Jan 2000 13:44");

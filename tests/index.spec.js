@@ -59,7 +59,7 @@ describe("AstronomyEngine", function () {
   it("should get ephemeris for sun rise", function () {
     expect(
       observer
-        .getEphemerisDateForObject("Sun", EPOCH_2000_DATE, "RISE")
+        .getEphemerisDateForObject("Sun", EPOCH_2000_DATE, "SUNRISE")
         .toUTCString(),
     ).toContain("Sat, 01 Jan 2000 08:05");
   });
