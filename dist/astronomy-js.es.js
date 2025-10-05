@@ -63,6 +63,11 @@ const l = {
       ALTITUDE: null,
       IS_GOING_UP: null
     },
+    LOWER_TRANSIT: {
+      NAME: "LOWER_TRANSIT",
+      ALTITUDE: null,
+      IS_GOING_UP: null
+    },
     CIVIL_TWILIGHT_START: {
       NAME: "CIVIL_TWILIGHT_START",
       ALTITUDE: "-6",
@@ -293,6 +298,13 @@ class _ {
     ).longitude;
     return this.getLocalSiderealTime(e) - s;
   }
+  getObjectLowerTransit(t, e) {
+    const s = this.getRADecCoordinatesForSolarSystemObject(
+      t,
+      e
+    ).longitude, a = this.getLocalSiderealTime(e) - s - 180;
+    return r.mod180Degrees(a);
+  }
   getObjectLocalHourAngleForAltitude(t, e, s) {
     const a = r.degreesToRadians(
       this.sphericalCoordinates.latitude
@@ -307,6 +319,8 @@ class _ {
   getIterationValueForPositionalEphemerisForObject(t, e, s) {
     if (s === l.EPHEMERIS_TYPE.TRANSIT)
       return e - this.getObjectTransit(t, e) / 15 / 24;
+    if (s === l.EPHEMERIS_TYPE.LOWER_TRANSIT)
+      return e - this.getObjectLowerTransit(t, e) / 15 / 24;
     {
       const a = this.getObjectTransit(
         t,
@@ -331,7 +345,7 @@ class _ {
       t,
       a,
       s
-    ), !(Math.abs(a - o) < 10 ^ -5)); n++)
+    ), !(Math.abs(a - o) < 1e-5)); n++)
       o = a;
     return T.julianDateToDate(a);
   }
@@ -360,12 +374,12 @@ class _ {
     );
   }
 }
-class D {
+class R {
   constructor(t, e) {
     this.objectType = t, this.name = e;
   }
 }
-class u extends D {
+class u extends R {
   constructor(t, e, s, a) {
     super(l.SOLAR_SYSTEM_OBJECT, t), this.orbitalParameters = e, this.meanRadius = s, this.axialTilt = a;
   }
@@ -482,7 +496,7 @@ class h {
     return e * (1 - Math.pow(s, 2)) / (1 + s * Math.cos(r.degreesToRadians(a)));
   }
 }
-class m extends u {
+class D extends u {
   constructor() {
     const t = new h(
       0.38709893,
@@ -501,7 +515,7 @@ class m extends u {
     super("Mercury", t, 2439700, 2.04);
   }
 }
-class R extends u {
+class m extends u {
   constructor() {
     const t = new h(
       0.72333199,
@@ -539,7 +553,7 @@ class N extends u {
     super("Earth", t, 6371e3, 23.439281);
   }
 }
-class C extends u {
+class L extends u {
   constructor() {
     const t = new h(
       1.52366231,
@@ -577,7 +591,7 @@ class b extends u {
     super("Jupiter", t, 69911e3, 3.13);
   }
 }
-class y extends u {
+class C extends u {
   constructor() {
     const t = new h(
       9.53707032,
@@ -596,7 +610,7 @@ class y extends u {
     super("Saturn", t, 58232e3, 26.73);
   }
 }
-class L extends u {
+class P extends u {
   constructor() {
     const t = new h(
       19.19126393,
@@ -615,7 +629,7 @@ class L extends u {
     super("Uranus", t, 25362e3, 97.77);
   }
 }
-class P extends u {
+class y extends u {
   constructor() {
     const t = new h(
       30.06896348,
@@ -635,14 +649,14 @@ class P extends u {
   }
 }
 const j = [
+  new D(),
   new m(),
-  new R(),
   new N(),
-  new C(),
-  new b(),
-  new y(),
   new L(),
-  new P()
+  new b(),
+  new C(),
+  new P(),
+  new y()
 ];
 class w extends u {
   constructor() {
