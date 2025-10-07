@@ -46,7 +46,7 @@ const l = {
     GOLDEN_HOUR_END: {
       NAME: "GOLDEN_HOUR_END",
       ALTITUDE: "6",
-      IS_GOING_UP: !1
+      IS_GOING_UP: !0
     },
     RISE: {
       NAME: "RISE",
