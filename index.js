@@ -59,8 +59,10 @@ export class AstronomyJS {
 
   getLatitudeLongitudeCoordinates() {
     return {
-      latitude: this.astronomicalCalculator.sphericalCoordinates.latitude,
-      longitude: this.astronomicalCalculator.sphericalCoordinates.longitude,
+      latitude:
+        this.astronomicalCalculator.observerSphericalCoordinates.latitude,
+      longitude:
+        this.astronomicalCalculator.observerSphericalCoordinates.longitude,
     };
   }
 

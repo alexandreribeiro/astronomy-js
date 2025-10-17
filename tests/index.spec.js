@@ -28,8 +28,12 @@ describe("AstronomyEngine", function () {
     observer.setLocation("Mars", 0, 0, 0);
     let astronomicalCalculator = observer.astronomicalCalculator;
     expect(astronomicalCalculator.solarSystemObject.name).toBe("Mars");
-    expect(astronomicalCalculator.sphericalCoordinates.latitude).toBe(0);
-    expect(astronomicalCalculator.sphericalCoordinates.longitude).toBe(0);
+    expect(astronomicalCalculator.observerSphericalCoordinates.latitude).toBe(
+      0,
+    );
+    expect(astronomicalCalculator.observerSphericalCoordinates.longitude).toBe(
+      0,
+    );
   });
   it("should get observer location", function () {
     observer.setLocation("Mars", 10, 20, 0);

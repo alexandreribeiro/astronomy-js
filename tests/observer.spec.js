@@ -4,16 +4,21 @@ import { Sun } from "../lib/solar-system-objects/sun";
 import { SphericalCoordinates } from "../lib/coordinates/spherical-coordinates";
 import { AstronomicalCalculator } from "../lib/astronomical-calculator.js";
 import { Constants } from "../lib/constants";
+import { ObserverSphericalCoordinates } from "../lib/coordinates/observer-spherical-coordinates.js";
+import { SkyObject } from "../lib/sky-object.js";
+import { SkyObjectType } from "../lib/sky-object-type.js";
 
 describe("Observer", function () {
   const earth = new Earth();
   const mars = new Mars();
   const sun = new Sun();
+
   const greenwichObserver = new AstronomicalCalculator(
-    new SphericalCoordinates(
-      Constants.GREENWICH_OBSERVATORY_COORDINATES.LATITUDE,
+    new ObserverSphericalCoordinates(
       Constants.GREENWICH_OBSERVATORY_COORDINATES.LONGITUDE,
+      Constants.GREENWICH_OBSERVATORY_COORDINATES.LATITUDE,
       Constants.GREENWICH_OBSERVATORY_COORDINATES.RADIUS,
+      new SkyObject(SkyObjectType.PLANET, "Earth"),
     ),
     earth,
   );
