@@ -21,7 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 const l = {
-  SOLAR_SYSTEM_OBJECT: "SOLAR_SYSTEM_OBJECT",
   GREENWICH_OBSERVATORY_COORDINATES: {
     LATITUDE: 51.476852,
     LONGITUDE: -5e-4,
@@ -106,7 +105,7 @@ const l = {
   NUMBERS_OF_ATTEMPT_TO_GET_POSITIONAL_EPHEMERIS: 5,
   DAYS_PER_JULIAN_CENTURY: 36525
 };
-class r {
+class a {
   static modDegrees(t) {
     for (; t < 0; )
       t = t + 360;
@@ -126,16 +125,16 @@ class r {
     return t > Math.PI ? e - 2 * Math.PI : e;
   }
   static radiansToDegrees(t) {
-    return t * 180 / Math.PI;
+    return t * (180 / Math.PI);
   }
   static degreesToRadians(t) {
-    return t * Math.PI / 180;
+    return t * (Math.PI / 180);
   }
   static padZero(t) {
     return t = t.toString(), t.length >= 2 ? t : "0" + t;
   }
 }
-class T {
+class d {
   static julianDate(t) {
     return t / l.MS_PER_DAY + l.JULIAN_DAY_OFFSET;
   }
@@ -151,69 +150,91 @@ class T {
     return this.julianDaysSinceEpoch2000(t) / l.DAYS_PER_JULIAN_CENTURY;
   }
   static meanSiderealTime(t) {
-    const e = this.julianDaysSinceEpoch2000(t), s = this.julianCenturiesSinceEpoch2000(t), a = 280.46061837 + 360.98564736629 * e + 387933e-9 * s * s - s * s * s / 3871e4;
-    return r.modDegrees(a);
+    const e = this.julianDaysSinceEpoch2000(t), s = this.julianCenturiesSinceEpoch2000(t), r = 280.46061837 + 360.98564736629 * e + 387933e-9 * s * s - s * s * s / 3871e4;
+    return a.modDegrees(r);
   }
 }
 class g {
-  constructor(t, e, s) {
-    this.x = t, this.y = e, this.z = s;
+  constructor(t, e, s, r) {
+    this.x = t, this.y = e, this.z = s, this.center = r;
   }
-  minus(t) {
+  /**
+   * @param {EclipticRectangularCoordinates} eclipticRectangularCoordinates
+   * @param {SkyObject} center
+   * @returns {EclipticRectangularCoordinates}
+   */
+  minus(t, e) {
     return new g(
       this.x - t.x,
       this.y - t.y,
-      this.z - t.z
+      this.z - t.z,
+      e
     );
   }
 }
-class d {
+class A {
   constructor(t, e, s) {
     this.latitude = t, this.longitude = e, this.radius = s;
   }
   toDegrees() {
     let t = this.latitude, e = this.longitude;
-    return new d(
-      `${t < 0 ? "-" : ""}${r.padZero(0 | (t < 0 ? t = -t : t))}° ${r.padZero(0 | t % 1 * 60)}' ${r.padZero(0 | t * 60 % 1 * 60)}''`,
-      `${e < 0 ? "-" : ""}${r.padZero(0 | (e < 0 ? e = -e : e))}° ${r.padZero(0 | e % 1 * 60)}' ${r.padZero(0 | e * 60 % 1 * 60)}''`,
+    return new A(
+      `${t < 0 ? "-" : ""}${a.padZero(0 | (t < 0 ? t = -t : t))}° ${a.padZero(0 | t % 1 * 60)}' ${a.padZero(0 | t * 60 % 1 * 60)}''`,
+      `${e < 0 ? "-" : ""}${a.padZero(0 | (e < 0 ? e = -e : e))}° ${a.padZero(0 | e % 1 * 60)}' ${a.padZero(0 | e * 60 % 1 * 60)}''`,
       this.radius
     );
   }
   toHours() {
     let t = this.latitude, e = this.longitude;
-    return new d(
-      `${t < 0 ? "-" : ""}${r.padZero(0 | (t < 0 ? t = -t : t))}° ${r.padZero(0 | t % 1 * 60)}' ${r.padZero(0 | t * 60 % 1 * 60)}''`,
-      `${e < 0 ? "-" : ""}${r.padZero(0 | (e < 0 ? e = -e / 15 : e = e / 15))}h ${r.padZero(0 | e % 1 * 60)}m ${r.padZero(0 | e * 60 % 1 * 60)}s`,
+    return new A(
+      `${t < 0 ? "-" : ""}${a.padZero(0 | (t < 0 ? t = -t : t))}° ${a.padZero(0 | t % 1 * 60)}' ${a.padZero(0 | t * 60 % 1 * 60)}''`,
+      `${e < 0 ? "-" : ""}${a.padZero(0 | (e < 0 ? e = -e / 15 : e = e / 15))}h ${a.padZero(0 | e % 1 * 60)}m ${a.padZero(0 | e * 60 % 1 * 60)}s`,
       this.radius
     );
   }
 }
+class N {
+  constructor(t, e, s, r) {
+    this.longitude = t, this.latitude = e, this.radius = s, this.center = r;
+  }
+}
 class _ {
   constructor(t, e) {
-    this.sphericalCoordinates = t || new d(
+    this.skyObjectType = t, this.name = e;
+  }
+}
+const h = {
+  PLANET: "planet",
+  STAR: "star"
+};
+class R {
+  constructor(t, e) {
+    this.observerSphericalCoordinates = t || new N(
       l.GREENWICH_OBSERVATORY_COORDINATES.LATITUDE,
       l.GREENWICH_OBSERVATORY_COORDINATES.LONGITUDE,
-      l.GREENWICH_OBSERVATORY_COORDINATES.RADIUS
+      l.GREENWICH_OBSERVATORY_COORDINATES.RADIUS,
+      new _(h.PLANET, "Earth")
     ), this.solarSystemObject = e;
   }
   getRectangularObjectCentricCoordinatesForSolarSystemObject(t, e) {
     return t.getRectangularHeliocentricCoordinates(e).minus(
       this.solarSystemObject.getRectangularHeliocentricCoordinates(
         e
-      )
+      ),
+      this.observerSphericalCoordinates.center
     );
   }
   getRectangularEquatorialCoordinatesForSolarSystemObject(t, e) {
     const s = this.getRectangularObjectCentricCoordinatesForSolarSystemObject(
       t,
       e
-    ), a = r.degreesToRadians(
+    ), r = a.degreesToRadians(
       this.solarSystemObject.axialTilt
     );
     return new g(
       s.x,
-      s.y * Math.cos(a) - s.z * Math.sin(a),
-      s.y * Math.sin(a) + s.z * Math.cos(a)
+      s.y * Math.cos(r) - s.z * Math.sin(r),
+      s.y * Math.sin(r) + s.z * Math.cos(r)
     );
   }
   getDistanceToSolarSystemObject(t, e) {
@@ -229,16 +250,16 @@ class _ {
     const s = this.getRectangularEquatorialCoordinatesForSolarSystemObject(
       t,
       e
-    ), a = s.x > 0 && s.y < 0 ? 360 : s.x < 0 ? 180 : 0, o = r.radiansToDegrees(
+    ), r = s.x > 0 && s.y < 0 ? 360 : s.x < 0 ? 180 : 0, o = a.radiansToDegrees(
       Math.atan(s.y / s.x)
-    ) + a, n = r.radiansToDegrees(
+    ) + r, n = a.radiansToDegrees(
       Math.atan(
         s.z / Math.sqrt(
           Math.pow(s.x, 2) + Math.pow(s.y, 2)
         )
       )
     );
-    return new d(
+    return new A(
       n,
       o,
       this.getDistanceToSolarSystemObject(t, e)
@@ -248,47 +269,47 @@ class _ {
     const s = this.getRectangularEquatorialCoordinatesForSolarSystemObject(
       t,
       e
-    ), a = s.x > 0 && s.y < 0 ? 360 : s.x < 0 ? 180 : 0, o = r.radiansToDegrees(
+    ), r = s.x > 0 && s.y < 0 ? 360 : s.x < 0 ? 180 : 0, o = a.radiansToDegrees(
       Math.atan(s.y / s.x)
-    ) + a, n = r.modDegrees(
+    ) + r, n = a.modDegrees(
       this.getLocalSiderealTime(e) - o
-    ), c = r.radiansToDegrees(
+    ), c = a.radiansToDegrees(
       Math.atan(
         s.z / Math.sqrt(
           Math.pow(s.x, 2) + Math.pow(s.y, 2)
         )
       )
     );
-    return new d(
+    return new A(
       c,
       n,
       this.getDistanceToSolarSystemObject(t, e)
     );
   }
   getAltAzCoordinatesForEquatorialCoordinates(t, e) {
-    const s = r.degreesToRadians(
-      r.modDegrees(
+    const s = a.degreesToRadians(
+      a.modDegrees(
         t.longitude - this.getLocalSiderealTime(e)
       )
-    ), a = r.degreesToRadians(
-      this.sphericalCoordinates.latitude
-    ), o = r.degreesToRadians(
+    ), r = a.degreesToRadians(
+      this.observerSphericalCoordinates.latitude
+    ), o = a.degreesToRadians(
       t.latitude
-    ), n = r.radiansToDegrees(
+    ), n = a.radiansToDegrees(
       Math.asin(
-        Math.sin(a) * Math.sin(o) + Math.cos(a) * Math.cos(o) * Math.cos(s)
+        Math.sin(r) * Math.sin(o) + Math.cos(r) * Math.cos(o) * Math.cos(s)
       )
-    ), c = r.radiansToDegrees(
+    ), c = a.radiansToDegrees(
       Math.PI - Math.atan2(
         Math.sin(s),
-        Math.cos(s) * Math.sin(a) - Math.tan(o) * Math.cos(a)
+        Math.cos(s) * Math.sin(r) - Math.tan(o) * Math.cos(r)
       )
     );
-    return new d(n, c, null);
+    return new A(n, c, null);
   }
   getLocalSiderealTime(t) {
-    return r.modDegrees(
-      T.meanSiderealTime(t) + this.sphericalCoordinates.longitude
+    return a.modDegrees(
+      d.meanSiderealTime(t) + this.observerSphericalCoordinates.longitude
     );
   }
   getObjectTransit(t, e) {
@@ -302,19 +323,19 @@ class _ {
     const s = this.getRADecCoordinatesForSolarSystemObject(
       t,
       e
-    ).longitude, a = this.getLocalSiderealTime(e) - s - 180;
-    return r.mod180Degrees(a);
+    ).longitude, r = this.getLocalSiderealTime(e) - s - 180;
+    return a.mod180Degrees(r);
   }
   getObjectLocalHourAngleForAltitude(t, e, s) {
-    const a = r.degreesToRadians(
-      this.sphericalCoordinates.latitude
-    ), o = r.degreesToRadians(s), n = r.degreesToRadians(
+    const r = a.degreesToRadians(
+      this.observerSphericalCoordinates.latitude
+    ), o = a.degreesToRadians(s), n = a.degreesToRadians(
       this.getRADecCoordinatesForSolarSystemObject(
         t,
         e
       ).latitude
-    ), c = (Math.sin(o) - Math.sin(a) * Math.sin(n)) / (Math.cos(a) * Math.cos(n));
-    return r.radiansToDegrees(Math.acos(c));
+    ), c = (Math.sin(o) - Math.sin(r) * Math.sin(n)) / (Math.cos(r) * Math.cos(n));
+    return a.radiansToDegrees(Math.acos(c));
   }
   getIterationValueForPositionalEphemerisForObject(t, e, s) {
     if (s === l.EPHEMERIS_TYPE.TRANSIT)
@@ -322,48 +343,48 @@ class _ {
     if (s === l.EPHEMERIS_TYPE.LOWER_TRANSIT)
       return e - this.getObjectLowerTransit(t, e) / 15 / 24;
     {
-      const a = this.getObjectTransit(
+      const r = this.getObjectTransit(
         t,
         e
       ), o = this.getObjectLocalHourAngleForAltitude(
         t,
         e,
         s.ALTITUDE
-      ), n = r.mod180Degrees(
-        s.IS_GOING_UP ? a + o : a - o
+      ), n = a.mod180Degrees(
+        s.IS_GOING_UP ? r + o : r - o
       );
       return e - n / 15 / 24;
     }
   }
   iteratePositionalEphemerisForObject(t, e, s) {
-    let a = this.getIterationValueForPositionalEphemerisForObject(
+    let r = this.getIterationValueForPositionalEphemerisForObject(
       t,
       e,
       s
-    ), o = +a;
-    for (let n = 0; n < 1e3 && (a = this.getIterationValueForPositionalEphemerisForObject(
+    ), o = +r;
+    for (let n = 0; n < 1e3 && (r = this.getIterationValueForPositionalEphemerisForObject(
       t,
-      a,
+      r,
       s
-    ), !(Math.abs(a - o) < 1e-5)); n++)
-      o = a;
-    return T.julianDateToDate(a);
+    ), !(Math.abs(r - o) < 1e-5)); n++)
+      o = r;
+    return d.julianDateToDate(r);
   }
-  getCorrectDateForPositionalEphemeris(t, e, s, a) {
+  getCorrectDateForPositionalEphemeris(t, e, s, r) {
     const o = this.iteratePositionalEphemerisForObject(
       t,
       e,
       s
     );
-    if (a > 0 && o.getDate() !== T.julianDateToDate(e).getDate()) {
-      const n = T.julianDate(o), c = n > e ? -1 : 1;
+    if (r > 0 && o.getDate() !== d.julianDateToDate(e).getDate()) {
+      const n = d.julianDate(o), c = n > e ? -1 : 1;
       return this.getCorrectDateForPositionalEphemeris(
         t,
         n + c,
         s,
-        a - 1
+        r - 1
       );
-    } else return a === 0 ? null : o;
+    } else return r === 0 ? null : o;
   }
   getDateForPositionalEphemeris(t, e, s) {
     return this.getCorrectDateForPositionalEphemeris(
@@ -374,35 +395,35 @@ class _ {
     );
   }
 }
-class R {
-  constructor(t, e) {
-    this.objectType = t, this.name = e;
-  }
-}
-class u extends R {
-  constructor(t, e, s, a) {
-    super(l.SOLAR_SYSTEM_OBJECT, t), this.orbitalParameters = e, this.meanRadius = s, this.axialTilt = a;
+class u extends _ {
+  constructor(t, e, s, r, o) {
+    super(t, e), this.orbitalParameters = s, this.meanRadius = r, this.axialTilt = o;
   }
   /**
    * @param julianDate
-   * @returns {RectangularCoordinates}
+   * @returns {EclipticRectangularCoordinates}
    */
   getRectangularHeliocentricCoordinates(t) {
-    const e = T.julianCenturiesSinceEpoch2000(t), s = r.degreesToRadians(
+    const e = d.julianCenturiesSinceEpoch2000(t), s = a.degreesToRadians(
       this.orbitalParameters.getInclination(e)
-    ), a = r.degreesToRadians(
+    ), r = a.degreesToRadians(
       this.orbitalParameters.getTrueAnomaly(e)
-    ), o = r.degreesToRadians(
+    ), o = a.degreesToRadians(
       this.orbitalParameters.getPerihelion(e)
-    ), n = r.degreesToRadians(
+    ), n = a.degreesToRadians(
       this.orbitalParameters.getAscendingNode(e)
     ), c = this.orbitalParameters.getOrbitRadius(
       e
-    ), E = a + o - n, I = c * (Math.cos(n) * Math.cos(E) - Math.sin(n) * Math.sin(E) * Math.cos(s)), S = c * (Math.sin(n) * Math.cos(E) + Math.cos(n) * Math.sin(E) * Math.cos(s)), A = c * (Math.sin(E) * Math.sin(s));
-    return new g(I, S, A);
+    ), E = r + o - n, S = c * (Math.cos(n) * Math.cos(E) - Math.sin(n) * Math.sin(E) * Math.cos(s)), I = c * (Math.sin(n) * Math.cos(E) + Math.cos(n) * Math.sin(E) * Math.cos(s)), O = c * (Math.sin(E) * Math.sin(s));
+    return new g(
+      S,
+      I,
+      O,
+      new _(h.STAR, "Sun")
+    );
   }
 }
-class h {
+class T {
   /**
    * @constructor
    * @param a0 semi-major axis (AU)
@@ -418,8 +439,8 @@ class h {
    * @param wc longitude of perihelion (arc seconds per Julian century)
    * @param lc mean longitude (arc seconds per Julian century)
    */
-  constructor(t, e, s, a, o, n, c, E, I, S, A, M) {
-    this.a0 = t, this.e0 = e, this.i0 = s, this.o0 = a, this.w0 = o, this.l0 = n, this.ac = c, this.ec = E, this.ic = I, this.oc = S, this.wc = A, this.lc = M;
+  constructor(t, e, s, r, o, n, c, E, S, I, O, m) {
+    this.a0 = t, this.e0 = e, this.i0 = s, this.o0 = r, this.w0 = o, this.l0 = n, this.ac = c, this.ec = E, this.ic = S, this.oc = I, this.wc = O, this.lc = m;
   }
   /**
    * @param julianCenturiesSinceEpoch2000
@@ -436,27 +457,27 @@ class h {
     return this.e0 + this.ec * t;
   }
   getInclination(t) {
-    return r.modDegrees(
+    return a.modDegrees(
       this.i0 + this.ic / 3600 * t
     );
   }
   getAscendingNode(t) {
-    return r.modDegrees(
+    return a.modDegrees(
       this.o0 + this.oc / 3600 * t
     );
   }
   getPerihelion(t) {
-    return r.modDegrees(
+    return a.modDegrees(
       this.w0 + this.wc / 3600 * t
     );
   }
   getMeanLongitude(t) {
-    return r.modDegrees(
+    return a.modDegrees(
       this.l0 + this.lc / 3600 * t
     );
   }
   getMeanAnomaly(t) {
-    return r.modDegrees(
+    return a.modDegrees(
       this.getMeanLongitude(t) - this.getPerihelion(t)
     );
   }
@@ -466,25 +487,25 @@ class h {
    * @returns {*} E: eccentric anomaly
    */
   getEccentricAnomaly(t) {
-    const e = r.degreesToRadians(
+    const e = a.degreesToRadians(
       this.getMeanAnomaly(t)
     ), s = this.getEccentricity(t);
-    let a = e + s * Math.sin(e) * (1 + s * Math.cos(e)), o = 0, n = 0, c = 0;
-    for (; c++ < 1e4 && (o = a - (a - s * Math.sin(a) - e) / (1 - s * Math.cos(a)), n = o - a, a = o, !(Math.abs(n) <= l.EPS)); )
+    let r = e + s * Math.sin(e) * (1 + s * Math.cos(e)), o = 0, n = 0, c = 0;
+    for (; c++ < 1e4 && (o = r - (r - s * Math.sin(r) - e) / (1 - s * Math.cos(r)), n = o - r, r = o, !(Math.abs(n) <= l.EPS)); )
       ;
-    return r.radiansToDegrees(o);
+    return a.radiansToDegrees(o);
   }
   /**
    * @param julianCenturiesSinceEpoch2000
    * @returns V: true anomaly
    */
   getTrueAnomaly(t) {
-    const e = this.getEccentricity(t), s = r.degreesToRadians(
+    const e = this.getEccentricity(t), s = a.degreesToRadians(
       this.getEccentricAnomaly(t)
-    ), a = 2 * Math.atan(
+    ), r = 2 * Math.atan(
       Math.sqrt((1 + e) / (1 - e)) * Math.tan(0.5 * s)
     );
-    return r.radiansToDegrees(a);
+    return a.radiansToDegrees(r);
   }
   /**
    * R = (a * (1 - e^2)) / (1 + e * cos(V))
@@ -492,13 +513,13 @@ class h {
    * @returns R: orbit radius
    */
   getOrbitRadius(t) {
-    const e = this.getSemiMajorAxis(t), s = this.getEccentricity(t), a = this.getTrueAnomaly(t);
-    return e * (1 - Math.pow(s, 2)) / (1 + s * Math.cos(r.degreesToRadians(a)));
+    const e = this.getSemiMajorAxis(t), s = this.getEccentricity(t), r = this.getTrueAnomaly(t);
+    return e * (1 - Math.pow(s, 2)) / (1 + s * Math.cos(a.degreesToRadians(r)));
   }
 }
-class D extends u {
+class L extends u {
   constructor() {
-    const t = new h(
+    const t = new T(
       0.38709893,
       0.20563069,
       7.00487,
@@ -512,12 +533,12 @@ class D extends u {
       573.57,
       53810162829e-2
     );
-    super("Mercury", t, 2439700, 2.04);
+    super(h.PLANET, "Mercury", t, 2439700, 2.04);
   }
 }
-class m extends u {
+class P extends u {
   constructor() {
-    const t = new h(
+    const t = new T(
       0.72333199,
       677323e-8,
       3.39471,
@@ -531,12 +552,12 @@ class m extends u {
       -108.8,
       21066413606e-2
     );
-    super("Venus", t, 6051800, 2.64);
+    super(h.PLANET, "Venus", t, 6051800, 2.64);
   }
 }
-class N extends u {
+class b extends u {
   constructor() {
-    const t = new h(
+    const t = new T(
       1.00000011,
       0.01671022,
       5e-5,
@@ -550,12 +571,12 @@ class N extends u {
       1198.28,
       12959774063e-2
     );
-    super("Earth", t, 6371e3, 23.439281);
+    super(h.PLANET, "Earth", t, 6371e3, 23.439281);
   }
 }
-class L extends u {
+class y extends u {
   constructor() {
-    const t = new h(
+    const t = new T(
       1.52366231,
       0.09341233,
       1.85061,
@@ -569,12 +590,12 @@ class L extends u {
       1560.78,
       6890510378e-2
     );
-    super("Mars", t, 3389500, 25.19);
+    super(h.PLANET, "Mars", t, 3389500, 25.19);
   }
 }
-class b extends u {
+class C extends u {
   constructor() {
-    const t = new h(
+    const t = new T(
       5.20336301,
       0.04839266,
       1.3053,
@@ -588,12 +609,12 @@ class b extends u {
       839.93,
       1092507835e-2
     );
-    super("Jupiter", t, 69911e3, 3.13);
+    super(h.PLANET, "Jupiter", t, 69911e3, 3.13);
   }
 }
-class C extends u {
+class w extends u {
   constructor() {
-    const t = new h(
+    const t = new T(
       9.53707032,
       0.0541506,
       2.48446,
@@ -607,12 +628,12 @@ class C extends u {
       -1948.89,
       440105295e-2
     );
-    super("Saturn", t, 58232e3, 26.73);
+    super(h.PLANET, "Saturn", t, 58232e3, 26.73);
   }
 }
-class P extends u {
+class j extends u {
   constructor() {
-    const t = new h(
+    const t = new T(
       19.19126393,
       0.04716771,
       0.76986,
@@ -626,12 +647,12 @@ class P extends u {
       1312.56,
       154254779e-2
     );
-    super("Uranus", t, 25362e3, 97.77);
+    super(h.PLANET, "Uranus", t, 25362e3, 97.77);
   }
 }
-class y extends u {
+class U extends u {
   constructor() {
-    const t = new h(
+    const t = new T(
       30.06896348,
       858587e-8,
       1.76917,
@@ -645,22 +666,22 @@ class y extends u {
       -844.43,
       786449.21
     );
-    super("Neptune", t, 24622e3, 28.32);
+    super(h.PLANET, "Neptune", t, 24622e3, 28.32);
   }
 }
-const j = [
-  new D(),
-  new m(),
-  new N(),
+const p = [
   new L(),
-  new b(),
-  new C(),
   new P(),
-  new y()
+  new b(),
+  new y(),
+  new C(),
+  new w(),
+  new j(),
+  new U()
 ];
-class w extends u {
+class G extends u {
   constructor() {
-    const t = new h(
+    const t = new T(
       39.48168677,
       0.24880766,
       17.14175,
@@ -674,22 +695,22 @@ class w extends u {
       7.765,
       145.2078
     );
-    super("Pluto", t, 1188300, 122.53);
+    super(h.PLANET, "Pluto", t, 1188300, 122.53);
   }
 }
-const U = [new w()];
-class p extends u {
+const F = [new G()];
+class D extends u {
   constructor() {
-    super("Sun", null, 695508e3);
+    super(h.STAR, "Sun", null, 695508e3, 0);
   }
   getRectangularHeliocentricCoordinates(t) {
-    return new g(0, 0, 0);
+    return new g(0, 0, 0, new D());
   }
 }
-const G = [new p()].concat(j).concat(U);
-class O {
+const H = [new D()].concat(p).concat(F);
+class M {
   constructor() {
-    this.skyObjects = [...G], this.astronomicalCalculator = new _(), this.julianDate = null, this.date = null;
+    this.skyObjects = [...H], this.astronomicalCalculator = new R(), this.julianDate = null, this.date = null;
   }
   getJulianDate() {
     return this.julianDate;
@@ -701,7 +722,7 @@ class O {
     return this.date;
   }
   setDate(t) {
-    this.date = t, this.setJulianDate(T.julianDate(t));
+    this.date = t, this.setJulianDate(d.julianDate(t));
   }
   getSkyObjectByName(t) {
     return this.skyObjects.find((e) => e.name === t) || null;
@@ -711,23 +732,23 @@ class O {
       (e) => e.NAME === t
     ) || null;
   }
-  setLocation(t, e, s, a) {
+  setLocation(t, e, s, r) {
     const o = this.getSkyObjectByName(t);
     if (!o)
       throw new Error(`Solar system object "${t}" not found`);
-    this.astronomicalCalculator = new _(
-      new d(
+    this.astronomicalCalculator = new R(
+      new A(
         e,
         s,
-        o.meanRadius + a
+        o.meanRadius + r
       ),
       o
     );
   }
   getLatitudeLongitudeCoordinates() {
     return {
-      latitude: this.astronomicalCalculator.sphericalCoordinates.latitude,
-      longitude: this.astronomicalCalculator.sphericalCoordinates.longitude
+      latitude: this.astronomicalCalculator.observerSphericalCoordinates.latitude,
+      longitude: this.astronomicalCalculator.observerSphericalCoordinates.longitude
     };
   }
   getRADecCoordinatesForObject(t) {
@@ -752,37 +773,37 @@ class O {
     const s = this.getSkyObjectByName(t);
     if (!s)
       throw new Error(`Object "${t}" not found`);
-    const a = e ? T.julianDate(e) : this.julianDate;
-    if (a === null)
+    const r = e ? d.julianDate(e) : this.julianDate;
+    if (r === null)
       throw new Error("Reference date not set");
     const o = this.astronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
       s,
-      a
+      r
     );
     return this.astronomicalCalculator.getAltAzCoordinatesForEquatorialCoordinates(
       o,
-      a
+      r
     );
   }
   static initialize(t, e) {
-    let s = new O();
+    let s = new M();
     return s.setLocation("Earth", t, e, 0), s.setDate(/* @__PURE__ */ new Date()), s;
   }
   getEphemerisDateForObject(t, e, s) {
-    const a = this.getSkyObjectByName(t), o = this.getEphemerisTypeByName(s);
-    if (!a || !o)
+    const r = this.getSkyObjectByName(t), o = this.getEphemerisTypeByName(s);
+    if (!r || !o)
       throw new Error("Invalid object name or ephemeris type");
     return this.astronomicalCalculator.getDateForPositionalEphemeris(
-      a,
-      T.julianDate(e),
+      r,
+      d.julianDate(e),
       o
     );
   }
 }
-function F(i, t) {
-  return O.initialize(i, t);
+function x(i, t) {
+  return M.initialize(i, t);
 }
 export {
-  O as AstronomyJS,
-  F as initialize
+  M as AstronomyJS,
+  x as initialize
 };
