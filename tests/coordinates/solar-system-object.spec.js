@@ -1,6 +1,7 @@
 import { OrbitalParameters } from "../../lib/solar-system-objects/orbital-parameters";
 import { SolarSystemObject } from "../../lib/solar-system-objects/solar-system-object";
 import { Constants } from "../../lib/constants";
+import { SkyObjectType } from "../../lib/sky-object-type.js";
 
 describe("SolarSystemObject", function () {
   const orbitalParameters = new OrbitalParameters(
@@ -17,7 +18,11 @@ describe("SolarSystemObject", function () {
     1560.78,
     68905103.78,
   );
-  const solarSystemObject = new SolarSystemObject("dummy", orbitalParameters);
+  const solarSystemObject = new SolarSystemObject(
+    SkyObjectType.PLANET,
+    "dummy",
+    orbitalParameters,
+  );
 
   it("should calculate rectangular heliocentric coordinates in epoch day zero correctly", function () {
     const rectangularHeliocentricCoordinates =
