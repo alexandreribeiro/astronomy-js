@@ -154,22 +154,18 @@ class d {
     return r.modDegrees(a);
   }
 }
-class g {
-  constructor(t, e, s, a) {
-    this.x = t, this.y = e, this.z = s, this.center = a;
+class _ {
+  constructor(t, e) {
+    this.skyObjectType = t, this.name = e;
   }
-  /**
-   * @param {EclipticRectangularCoordinates} eclipticRectangularCoordinates
-   * @param {SkyObject} center
-   * @returns {EclipticRectangularCoordinates}
-   */
-  minus(t, e) {
-    return new g(
-      this.x - t.x,
-      this.y - t.y,
-      this.z - t.z,
-      e
-    );
+}
+const h = {
+  PLANET: "planet",
+  STAR: "star"
+};
+class N {
+  constructor(t, e, s, a) {
+    this.longitude = t, this.latitude = e, this.elevation = s, this.center = a;
   }
 }
 class A {
@@ -193,20 +189,24 @@ class A {
     );
   }
 }
-class N {
+class g {
   constructor(t, e, s, a) {
-    this.longitude = t, this.latitude = e, this.radius = s, this.center = a;
+    this.x = t, this.y = e, this.z = s, this.center = a;
+  }
+  /**
+   * @param {EclipticRectangularCoordinates} eclipticRectangularCoordinates
+   * @param {SolarSystemObject} center
+   * @returns {EclipticRectangularCoordinates}
+   */
+  minus(t, e) {
+    return new g(
+      this.x - t.x,
+      this.y - t.y,
+      this.z - t.z,
+      e
+    );
   }
 }
-class _ {
-  constructor(t, e) {
-    this.skyObjectType = t, this.name = e;
-  }
-}
-const h = {
-  PLANET: "planet",
-  STAR: "star"
-};
 class R {
   constructor(t, e) {
     this.observerSphericalCoordinates = t || new N(
