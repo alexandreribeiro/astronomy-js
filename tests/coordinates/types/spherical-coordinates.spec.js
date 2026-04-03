@@ -1,4 +1,4 @@
-import { SphericalCoordinates } from "../../lib/coordinates/spherical-coordinates";
+import { SphericalCoordinates } from "../../../lib/coordinates/types/spherical-coordinates.js";
 
 describe("SphericalCoordinates", function () {
   it("should convert to positive degrees", function () {

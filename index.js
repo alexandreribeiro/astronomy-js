@@ -1,8 +1,8 @@
 import { TimeHelper } from "./lib/time-helper.js";
 import { AstronomicalCalculator } from "./lib/astronomical-calculator.js";
-import { SphericalCoordinates } from "./lib/coordinates/spherical-coordinates.js";
 import { SOLAR_SYSTEM_OBJECTS_LIST } from "./lib/solar-system-objects/solar-system-objects-list.js";
 import { Constants } from "./lib/constants.js";
+import { SphericalCoordinates } from "./lib/coordinates/types/spherical-coordinates.js";
 
 export class AstronomyJS {
   constructor() {
