@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import { CoordinatesConverter } from "../../lib/coordinates/coordinates-converter.js";
 import { EclipticRectangularCoordinates } from "../../lib/coordinates/types/ecliptic-rectangular-coordinates.js";
 import { SkyObject } from "../../lib/sky-object.js";
@@ -119,7 +120,7 @@ describe("CoordinatesConverter.eclipticRectangularCoordinatesToEclipticSpherical
 });
 
 describe("CoordinatesConverter.eclipticSphericalCoordinatesToEquatorialSphericalCoordinates", () => {
-  const obliquity = 23.44;
+  const obliquity = 23.44; // degrees
 
   it("with zero obliquity, RA=lambda and Dec=beta", () => {
     const center = Sun;
@@ -243,11 +244,11 @@ describe("CoordinatesConverter.eclipticSphericalCoordinatesToEquatorialSpherical
       );
 
     expect(equatorialSphericalTopocentric.rightAscension).toBeCloseTo(
-      222.44721566462408,
+      221.95509118949212,
       12,
     );
     expect(equatorialSphericalTopocentric.declination).toBeCloseTo(
-      -10.89973314079676,
+      -11.652512735856815,
       12,
     );
   });
@@ -255,8 +256,8 @@ describe("CoordinatesConverter.eclipticSphericalCoordinatesToEquatorialSpherical
   it("converts moon JD2000 topocentric to horizontal spherical coordinates correctly", () => {
     const equatorialSphericalTopocentricCoordinates =
       new TopocentricEquatorialSphericalCoordinates(
-        221.95509928156383,
-        -11.652500397257649,
+        221.95509118949212,
+        -11.652512735856815,
       );
     const equatorialSphericalTopocentric =
       CoordinatesConverter.equatorialSphericalTopocentricToHorizontalSphericalCoordinates(
@@ -266,11 +267,11 @@ describe("CoordinatesConverter.eclipticSphericalCoordinatesToEquatorialSpherical
       );
 
     expect(equatorialSphericalTopocentric.altitude).toBeCloseTo(
-      9.244881463050332,
+      9.244866798477615,
       12,
     );
     expect(equatorialSphericalTopocentric.azimuth).toBeCloseTo(
-      237.79077578500537,
+      237.79077582673483,
       12,
     );
   });

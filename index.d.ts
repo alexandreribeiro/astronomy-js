@@ -38,6 +38,8 @@ declare module "astronomy-js" {
 
     getHADecCoordinatesForObject(objectName: string): any;
 
+    getLocalMeanSiderealTime(): any;
+
     getAltAzCoordinatesForObject(objectName: string, referenceDate?: Date): any;
 
     getEphemerisDateForObject(

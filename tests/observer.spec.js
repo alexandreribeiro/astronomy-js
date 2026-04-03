@@ -3,34 +3,38 @@ import { Mars } from "../lib/solar-system-objects/planets/mars";
 import { Sun } from "../lib/solar-system-objects/sun";
 import { AstronomicalCalculator } from "../lib/astronomical-calculator.js";
 import { Constants } from "../lib/constants";
-import { SkyObject } from "../lib/sky-object.js";
-import { SkyObjectType } from "../lib/sky-object-type.js";
+import { Moon } from "../lib/solar-system-objects/satellites/moon.js";
 import { ObserverLocation } from "../lib/coordinates/types/observer-location.js";
-import { SphericalCoordinates } from "../lib/coordinates/types/spherical-coordinates.js";
 
 describe("Observer", function () {
   const earth = new Earth();
   const mars = new Mars();
   const sun = new Sun();
+  const moon = new Moon();
 
   const greenwichObserver = new AstronomicalCalculator(
     new ObserverLocation(
       Constants.GREENWICH_OBSERVATORY_COORDINATES.LONGITUDE,
       Constants.GREENWICH_OBSERVATORY_COORDINATES.LATITUDE,
       Constants.GREENWICH_OBSERVATORY_COORDINATES.RADIUS,
-      new SkyObject(SkyObjectType.PLANET, "Earth"),
+      new Earth(),
     ),
     earth,
   );
 
   const kirunaObserver = new AstronomicalCalculator(
-    new SphericalCoordinates(67.85, 20.21, Constants.KIRUNA_COORDINATES.RADIUS),
+    new ObserverLocation(
+      20.21,
+      67.85,
+      Constants.GREENWICH_OBSERVATORY_COORDINATES.RADIUS,
+      new Earth(),
+    ),
     earth,
   );
 
   it("should calculate local sidereal time in epoch day zero correctly", function () {
     expect(
-      greenwichObserver.getLocalSiderealTime(Constants.JULIAN_DAY_2000),
+      greenwichObserver.getLocalMeanSiderealTime(Constants.JULIAN_DAY_2000),
     ).toBeCloseTo(280.4601, 4);
   });
 
@@ -72,6 +76,14 @@ describe("Observer", function () {
       );
     expect(RADecForSun.latitude).toBeCloseTo(-23.03, 2);
     expect(RADecForSun.longitude).toBeCloseTo(281.29, 2);
+
+    const RADecForMoon =
+      greenwichObserver.getRADecCoordinatesForSolarSystemObject(
+        moon,
+        Constants.JULIAN_DAY_2000,
+      );
+    expect(RADecForMoon.latitude).toBeCloseTo(-10.9, 1);
+    expect(RADecForMoon.longitude).toBeCloseTo(222.45, 1);
 
     const RADecForMars =
       greenwichObserver.getRADecCoordinatesForSolarSystemObject(
@@ -149,6 +161,19 @@ describe("Observer", function () {
       );
     expect(AltAzForSun.latitude).toBeCloseTo(15.49, 2);
     expect(AltAzForSun.longitude).toBeCloseTo(179.21, 2);
+
+    const RADecForMoon =
+      greenwichObserver.getRADecCoordinatesForSolarSystemObject(
+        moon,
+        Constants.JULIAN_DAY_2000,
+      );
+    const AltAzForMoon =
+      greenwichObserver.getAltAzCoordinatesForEquatorialCoordinates(
+        RADecForMoon,
+        Constants.JULIAN_DAY_2000,
+      );
+    expect(AltAzForMoon.latitude).toBeCloseTo(10.14, 1);
+    expect(AltAzForMoon.longitude).toBeCloseTo(237.79, 1);
 
     const RADecForMars =
       greenwichObserver.getRADecCoordinatesForSolarSystemObject(

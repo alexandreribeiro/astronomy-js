@@ -1,5 +1,5 @@
 import { OrbitalParameters } from "../../lib/solar-system-objects/orbital-parameters";
-import { TimeHelper } from "../../lib/time-helper";
+import { JulianDateCalculator } from "../../lib/time/julian-date-calculator.js";
 import { Constants } from "../../lib/constants";
 
 describe("OrbitalParameters", function () {
@@ -18,9 +18,13 @@ describe("OrbitalParameters", function () {
     68905103.78,
   );
   const julianCenturiesSinceEpoch2000 =
-    TimeHelper.julianCenturiesSinceEpoch2000(Constants.JULIAN_DAY_2000);
+    JulianDateCalculator.julianCenturiesSinceEpoch2000(
+      Constants.JULIAN_DAY_2000,
+    );
   const julianCenturiesSinceEpoch2010 =
-    TimeHelper.julianCenturiesSinceEpoch2000(Constants.JULIAN_DAY_2010);
+    JulianDateCalculator.julianCenturiesSinceEpoch2000(
+      Constants.JULIAN_DAY_2010,
+    );
 
   it("should calculate ascending node longitude in epoch day zero correctly", function () {
     expect(

@@ -1,13 +1,15 @@
-import { TimeHelper } from "./lib/time-helper.js";
+import { JulianDateCalculator } from "./lib/time/julian-date-calculator.js";
 import { AstronomicalCalculator } from "./lib/astronomical-calculator.js";
 import { SOLAR_SYSTEM_OBJECTS_LIST } from "./lib/solar-system-objects/solar-system-objects-list.js";
 import { Constants } from "./lib/constants.js";
 import { SphericalCoordinates } from "./lib/coordinates/types/spherical-coordinates.js";
+import { ObserverLocation } from "./lib/coordinates/types/observer-location.js";
 
 export class AstronomyJS {
   constructor() {
     this.skyObjects = [...SOLAR_SYSTEM_OBJECTS_LIST];
     this.astronomicalCalculator = new AstronomicalCalculator();
+    this.observerLocation = null;
     this.julianDate = null;
     this.date = null;
   }
@@ -26,7 +28,7 @@ export class AstronomyJS {
 
   setDate(newDate) {
     this.date = newDate;
-    this.setJulianDate(TimeHelper.julianDate(newDate));
+    this.setJulianDate(JulianDateCalculator.julianDate(newDate));
   }
 
   getSkyObjectByName(objectName) {
@@ -47,11 +49,19 @@ export class AstronomyJS {
       throw new Error(`Solar system object "${objectName}" not found`);
     }
 
+    this.observerLocation = new ObserverLocation(
+      longitude,
+      latitude,
+      elevationFromObjectSurface,
+      solarSystemObject,
+    );
+
     this.astronomicalCalculator = new AstronomicalCalculator(
-      new SphericalCoordinates(
-        latitude,
+      new ObserverLocation(
         longitude,
+        latitude,
         solarSystemObject.meanRadius + elevationFromObjectSurface,
+        solarSystemObject,
       ),
       solarSystemObject,
     );
@@ -59,10 +69,8 @@ export class AstronomyJS {
 
   getLatitudeLongitudeCoordinates() {
     return {
-      latitude:
-        this.astronomicalCalculator.observerSphericalCoordinates.latitude,
-      longitude:
-        this.astronomicalCalculator.observerSphericalCoordinates.longitude,
+      latitude: this.observerLocation.latitude,
+      longitude: this.observerLocation.longitude,
     };
   }
 
@@ -88,6 +96,15 @@ export class AstronomyJS {
     );
   }
 
+  getLocalMeanSiderealTime() {
+    if (this.julianDate === null) {
+      throw new Error("Julian date not set");
+    }
+    return this.astronomicalCalculator.getLocalMeanSiderealTime(
+      this.julianDate,
+    );
+  }
+
   getAltAzCoordinatesForObject(objectName, referenceDate) {
     const skyObject = this.getSkyObjectByName(objectName);
     if (!skyObject) {
@@ -95,7 +112,7 @@ export class AstronomyJS {
     }
 
     const julianReferenceDate = referenceDate
-      ? TimeHelper.julianDate(referenceDate)
+      ? JulianDateCalculator.julianDate(referenceDate)
       : this.julianDate;
 
     if (julianReferenceDate === null) {
@@ -131,7 +148,7 @@ export class AstronomyJS {
 
     return this.astronomicalCalculator.getDateForPositionalEphemeris(
       solarSystemObject,
-      TimeHelper.julianDate(referenceDate),
+      JulianDateCalculator.julianDate(referenceDate),
       ephemerisType,
     );
   }
