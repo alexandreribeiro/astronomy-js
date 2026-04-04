@@ -55,16 +55,6 @@ export class AstronomyJS {
       elevationFromObjectSurface,
       solarSystemObject,
     );
-
-    this.astronomicalCalculator = new AstronomicalCalculator(
-      new ObserverLocation(
-        longitude,
-        latitude,
-        solarSystemObject.meanRadius + elevationFromObjectSurface,
-        solarSystemObject,
-      ),
-      solarSystemObject,
-    );
   }
 
   getLatitudeLongitudeCoordinates() {
@@ -79,7 +69,8 @@ export class AstronomyJS {
     if (!skyObject || this.julianDate === null) {
       throw new Error("Invalid object name or Julian date not set");
     }
-    return this.astronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+    return AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+      this.observerLocation,
       skyObject,
       this.julianDate,
     );
@@ -90,7 +81,8 @@ export class AstronomyJS {
     if (!skyObject || this.julianDate === null) {
       throw new Error("Invalid object name or Julian date not set");
     }
-    return this.astronomicalCalculator.getHADecCoordinatesForSolarSystemObject(
+    return AstronomicalCalculator.getHADecCoordinatesForSolarSystemObject(
+      this.observerLocation,
       skyObject,
       this.julianDate,
     );
@@ -100,7 +92,8 @@ export class AstronomyJS {
     if (this.julianDate === null) {
       throw new Error("Julian date not set");
     }
-    return this.astronomicalCalculator.getLocalMeanSiderealTime(
+    return AstronomicalCalculator.getLocalMeanSiderealTime(
+      this.observerLocation,
       this.julianDate,
     );
   }
@@ -120,12 +113,14 @@ export class AstronomyJS {
     }
 
     const equatorialCoordinates =
-      this.astronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+      AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+        this.observerLocation,
         skyObject,
         julianReferenceDate,
       );
 
-    return this.astronomicalCalculator.getAltAzCoordinatesForEquatorialCoordinates(
+    return AstronomicalCalculator.getAltAzCoordinatesForEquatorialCoordinates(
+      this.observerLocation,
       equatorialCoordinates,
       julianReferenceDate,
     );
@@ -146,7 +141,8 @@ export class AstronomyJS {
       throw new Error("Invalid object name or ephemeris type");
     }
 
-    return this.astronomicalCalculator.getDateForPositionalEphemeris(
+    return AstronomicalCalculator.getDateForPositionalEphemeris(
+      this.observerLocation,
       solarSystemObject,
       JulianDateCalculator.julianDate(referenceDate),
       ephemerisType,
