@@ -7,9 +7,11 @@ declare module "astronomy-js" {
     skyObjects: typeof SOLAR_SYSTEM_OBJECTS_LIST;
     astronomicalCalculator: AstronomicalCalculator;
     julianDate: number | null;
-    date: Date | null;
+    simulationDate: Date | null;
 
     constructor();
+
+    static initialize(latitude: number, longitude: number): AstronomyJS;
 
     getJulianDate(): number | null;
 
@@ -31,8 +33,6 @@ declare module "astronomy-js" {
     ): void;
 
     getLatitudeLongitudeCoordinates(): { latitude: number; longitude: number };
-
-    static initialize(latitude: number, longitude: number): AstronomyJS;
 
     getRADecCoordinatesForObject(objectName: string): any;
 

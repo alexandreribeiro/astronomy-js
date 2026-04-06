@@ -89,51 +89,51 @@ describe("AstronomicalCalculator", () => {
 
   it("should calculate RA/Dec to solar system objects in epoch day zero correctly", function () {
     const RADecForSun =
-      AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+      AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
         greenwichObserver,
         sun,
         Constants.JULIAN_DAY_2000,
       );
-    expect(RADecForSun.latitude).toBeCloseTo(-23.03, 2);
-    expect(RADecForSun.longitude).toBeCloseTo(281.29, 2);
+    expect(RADecForSun.declination).toBeCloseTo(-23.035, 2);
+    expect(RADecForSun.rightAscension).toBeCloseTo(281.29, 2);
 
     const RADecForMoon =
-      AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+      AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
         greenwichObserver,
         moon,
         Constants.JULIAN_DAY_2000,
       );
-    expect(RADecForMoon.latitude).toBeCloseTo(-10.9, 1);
-    expect(RADecForMoon.longitude).toBeCloseTo(222.45, 1);
+    expect(RADecForMoon.declination).toBeCloseTo(-11.65, 1);
+    expect(RADecForMoon.rightAscension).toBeCloseTo(221.95, 1);
 
     const RADecForMars =
-      AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+      AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
         greenwichObserver,
         mars,
         Constants.JULIAN_DAY_2000,
       );
-    expect(RADecForMars.latitude).toBeCloseTo(-13.18, 2);
-    expect(RADecForMars.longitude).toBeCloseTo(330.54, 2);
+    expect(RADecForMars.declination).toBeCloseTo(-13.18, 2);
+    expect(RADecForMars.rightAscension).toBeCloseTo(330.54, 2);
   });
 
   it("should calculate RA/Dec to solar system objects in epoch day zero plus one decade correctly", function () {
     const RADecForSun =
-      AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+      AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
         greenwichObserver,
         sun,
         Constants.JULIAN_DAY_2010,
       );
-    expect(RADecForSun.latitude).toBeCloseTo(-23.04, 2);
-    expect(RADecForSun.longitude).toBeCloseTo(281.22, 2);
+    expect(RADecForSun.declination).toBeCloseTo(-23.04, 2);
+    expect(RADecForSun.rightAscension).toBeCloseTo(281.22, 2);
 
     const RADecForMars =
-      AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+      AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
         greenwichObserver,
         mars,
         Constants.JULIAN_DAY_2010,
       );
-    expect(RADecForMars.latitude).toBeCloseTo(18.79, 2);
-    expect(RADecForMars.longitude).toBeCloseTo(142.35, 2);
+    expect(RADecForMars.declination).toBeCloseTo(18.79, 2);
+    expect(RADecForMars.rightAscension).toBeCloseTo(142.35, 2);
   });
 
   it("should calculate HA/Dec to solar system objects in epoch day zero correctly", function () {
@@ -177,50 +177,32 @@ describe("AstronomicalCalculator", () => {
   });
 
   it("should calculate Alt/Az to solar system objects in epoch day zero correctly", function () {
-    const RADecForSun =
-      AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+    const AltAzForSun =
+      AstronomicalCalculator.getHorizontalSphericalCoordinatesForSolarSystemObject(
         greenwichObserver,
         sun,
         Constants.JULIAN_DAY_2000,
       );
-    const AltAzForSun =
-      AstronomicalCalculator.getAltAzCoordinatesForEquatorialCoordinates(
-        greenwichObserver,
-        RADecForSun,
-        Constants.JULIAN_DAY_2000,
-      );
-    expect(AltAzForSun.latitude).toBeCloseTo(15.49, 2);
-    expect(AltAzForSun.longitude).toBeCloseTo(179.21, 2);
+    expect(AltAzForSun.altitude).toBeCloseTo(15.48, 2);
+    expect(AltAzForSun.azimuth).toBeCloseTo(179.21, 2);
 
-    const RADecForMoon =
-      AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+    const AltAzForMoon =
+      AstronomicalCalculator.getHorizontalSphericalCoordinatesForSolarSystemObject(
         greenwichObserver,
         moon,
         Constants.JULIAN_DAY_2000,
       );
-    const AltAzForMoon =
-      AstronomicalCalculator.getAltAzCoordinatesForEquatorialCoordinates(
-        greenwichObserver,
-        RADecForMoon,
-        Constants.JULIAN_DAY_2000,
-      );
-    expect(AltAzForMoon.latitude).toBeCloseTo(10.14, 1);
-    expect(AltAzForMoon.longitude).toBeCloseTo(237.79, 1);
+    expect(AltAzForMoon.altitude).toBeCloseTo(9.24, 1);
+    expect(AltAzForMoon.azimuth).toBeCloseTo(237.79, 1);
 
-    const RADecForMars =
-      AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+    const AltAzForMars =
+      AstronomicalCalculator.getHorizontalSphericalCoordinatesForSolarSystemObject(
         greenwichObserver,
         mars,
         Constants.JULIAN_DAY_2000,
       );
-    const AltAzForMars =
-      AstronomicalCalculator.getAltAzCoordinatesForEquatorialCoordinates(
-        greenwichObserver,
-        RADecForMars,
-        Constants.JULIAN_DAY_2000,
-      );
-    expect(AltAzForMars.latitude).toBeCloseTo(12.17, 2);
-    expect(AltAzForMars.longitude).toBeCloseTo(130.19, 2);
+    expect(AltAzForMars.altitude).toBeCloseTo(12.17, 2);
+    expect(AltAzForMars.azimuth).toBeCloseTo(130.19, 2);
   });
 
   it("should calculate transit times correctly", function () {

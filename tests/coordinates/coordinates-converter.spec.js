@@ -7,7 +7,7 @@ import { EclipticSphericalCoordinates } from "../../lib/coordinates/types/eclipt
 import { Constants } from "../../lib/constants.js";
 import { EquatorialSphericalCoordinates } from "../../lib/coordinates/types/equatorial-spherical-coordinates.js";
 import { Earth } from "../../lib/solar-system-objects/planets/earth.js";
-import { TopocentricEquatorialSphericalCoordinates } from "../../lib/coordinates/types/topocentric-equatorial-spherical-coordinates.js";
+import { TopocentricEquatorialRightAscensionDeclinationCoordinates } from "../../lib/coordinates/types/topocentric-equatorial-right-ascension-declination-coordinates.js";
 
 const Sun = new SkyObject(SkyObjectType.STAR, "Sun");
 
@@ -254,23 +254,23 @@ describe("CoordinatesConverter.eclipticSphericalCoordinatesToEquatorialSpherical
   });
 
   it("converts moon JD2000 topocentric to horizontal spherical coordinates correctly", () => {
-    const equatorialSphericalTopocentricCoordinates =
-      new TopocentricEquatorialSphericalCoordinates(
+    const topocentricEquatorialRightAscensionDeclinationCoordinates =
+      new TopocentricEquatorialRightAscensionDeclinationCoordinates(
         221.95509118949212,
         -11.652512735856815,
       );
-    const equatorialSphericalTopocentric =
-      CoordinatesConverter.equatorialSphericalTopocentricToHorizontalSphericalCoordinates(
-        equatorialSphericalTopocentricCoordinates,
+    const horizontalSphericalCoordinates =
+      CoordinatesConverter.topocentricEquatorialRightAscensionDeclinationToHorizontalCoordinates(
+        topocentricEquatorialRightAscensionDeclinationCoordinates,
         Constants.GREENWICH_OBSERVATORY_COORDINATES.LATITUDE,
         280.46061837,
       );
 
-    expect(equatorialSphericalTopocentric.altitude).toBeCloseTo(
+    expect(horizontalSphericalCoordinates.altitude).toBeCloseTo(
       9.244866798477615,
       12,
     );
-    expect(equatorialSphericalTopocentric.azimuth).toBeCloseTo(
+    expect(horizontalSphericalCoordinates.azimuth).toBeCloseTo(
       237.79077582673483,
       12,
     );

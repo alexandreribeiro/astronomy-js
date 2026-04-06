@@ -8,10 +8,16 @@ import { ObserverLocation } from "./lib/coordinates/types/observer-location.js";
 export class AstronomyJS {
   constructor() {
     this.skyObjects = [...SOLAR_SYSTEM_OBJECTS_LIST];
-    this.astronomicalCalculator = new AstronomicalCalculator();
     this.observerLocation = null;
     this.julianDate = null;
-    this.date = null;
+    this.simulationDate = null;
+  }
+
+  static initialize(latitude, longitude) {
+    let astronomyJS = new AstronomyJS();
+    astronomyJS.setLocation("Earth", latitude, longitude, 0);
+    astronomyJS.setDate(new Date());
+    return astronomyJS;
   }
 
   getJulianDate() {
@@ -23,16 +29,18 @@ export class AstronomyJS {
   }
 
   getDate() {
-    return this.date;
+    return this.simulationDate;
   }
 
   setDate(newDate) {
-    this.date = newDate;
+    this.simulationDate = newDate;
     this.setJulianDate(JulianDateCalculator.julianDate(newDate));
   }
 
   getSkyObjectByName(objectName) {
-    return this.skyObjects.find((obj) => obj.name === objectName) || null;
+    return (
+      this.skyObjects.find((skyObject) => skyObject.name === objectName) || null
+    );
   }
 
   getEphemerisTypeByName(objectName) {
@@ -69,7 +77,7 @@ export class AstronomyJS {
     if (!skyObject || this.julianDate === null) {
       throw new Error("Invalid object name or Julian date not set");
     }
-    return AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
+    return AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
       this.observerLocation,
       skyObject,
       this.julianDate,
@@ -103,34 +111,14 @@ export class AstronomyJS {
     if (!skyObject) {
       throw new Error(`Object "${objectName}" not found`);
     }
-
     const julianReferenceDate = referenceDate
       ? JulianDateCalculator.julianDate(referenceDate)
       : this.julianDate;
-
-    if (julianReferenceDate === null) {
-      throw new Error("Reference date not set");
-    }
-
-    const equatorialCoordinates =
-      AstronomicalCalculator.getRADecCoordinatesForSolarSystemObject(
-        this.observerLocation,
-        skyObject,
-        julianReferenceDate,
-      );
-
-    return AstronomicalCalculator.getAltAzCoordinatesForEquatorialCoordinates(
+    return AstronomicalCalculator.getHorizontalSphericalCoordinatesForSolarSystemObject(
       this.observerLocation,
-      equatorialCoordinates,
+      skyObject,
       julianReferenceDate,
     );
-  }
-
-  static initialize(latitude, longitude) {
-    let astronomyJS = new AstronomyJS();
-    astronomyJS.setLocation("Earth", latitude, longitude, 0);
-    astronomyJS.setDate(new Date());
-    return astronomyJS;
   }
 
   getEphemerisDateForObject(objectName, referenceDate, ephemerisTypeName) {
@@ -147,6 +135,10 @@ export class AstronomyJS {
       JulianDateCalculator.julianDate(referenceDate),
       ephemerisType,
     );
+  }
+
+  getObserverLocation() {
+    return this.observerLocation;
   }
 }
 

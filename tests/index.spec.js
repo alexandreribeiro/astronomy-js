@@ -62,8 +62,8 @@ describe("AstronomyEngine", function () {
 
   it("should get right ascension and declination for sun in epoch J2000", function () {
     const raDec = astronomyEngine.getRADecCoordinatesForObject("Sun");
-    expect(raDec.latitude).toBeCloseTo(-23.03, 2);
-    expect(raDec.longitude).toBeCloseTo(281.29, 2);
+    expect(raDec.declination).toBeCloseTo(-23.035, 2);
+    expect(raDec.rightAscension).toBeCloseTo(281.29, 2);
   });
 
   it("should get local hour angle and declination for sun in epoch J2000", function () {
@@ -74,15 +74,15 @@ describe("AstronomyEngine", function () {
 
   it("should get altitude and azimuth for sun in epoch J2000", function () {
     let altAz = astronomyEngine.getAltAzCoordinatesForObject("Sun");
-    expect(altAz.latitude).toBeCloseTo(15.49, 2);
-    expect(altAz.longitude).toBeCloseTo(179.21, 2);
+    expect(altAz.altitude).toBeCloseTo(15.48, 2);
+    expect(altAz.azimuth).toBeCloseTo(179.21, 2);
 
     altAz = astronomyEngine.getAltAzCoordinatesForObject(
       "Sun",
       EPOCH_2000_DATE,
     );
-    expect(altAz.latitude).toBeCloseTo(15.49, 2);
-    expect(altAz.longitude).toBeCloseTo(179.21, 2);
+    expect(altAz.altitude).toBeCloseTo(15.48, 2);
+    expect(altAz.azimuth).toBeCloseTo(179.21, 2);
   });
 
   it("should get ephemeris for sun rise", function () {
