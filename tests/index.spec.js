@@ -68,8 +68,8 @@ describe("AstronomyEngine", function () {
 
   it("should get local hour angle and declination for sun in epoch J2000", function () {
     const haDec = astronomyEngine.getHADecCoordinatesForObject("Sun");
-    expect(haDec.latitude).toBeCloseTo(-23.03, 2);
-    expect(haDec.longitude).toBeCloseTo(359.17, 2);
+    expect(haDec.declination).toBeCloseTo(-23.035, 2);
+    expect(haDec.hourAngle).toBeCloseTo(359.17, 2);
   });
 
   it("should get altitude and azimuth for sun in epoch J2000", function () {

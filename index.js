@@ -2,7 +2,6 @@ import { JulianDateCalculator } from "./lib/time/julian-date-calculator.js";
 import { AstronomicalCalculator } from "./lib/astronomical-calculator.js";
 import { SOLAR_SYSTEM_OBJECTS_LIST } from "./lib/solar-system-objects/solar-system-objects-list.js";
 import { Constants } from "./lib/constants.js";
-import { SphericalCoordinates } from "./lib/coordinates/types/spherical-coordinates.js";
 import { ObserverLocation } from "./lib/coordinates/types/observer-location.js";
 
 export class AstronomyJS {

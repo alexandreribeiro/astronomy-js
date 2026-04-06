@@ -143,8 +143,8 @@ describe("AstronomicalCalculator", () => {
         sun,
         Constants.JULIAN_DAY_2000,
       );
-    expect(HADecForSun.latitude).toBeCloseTo(-23.03, 2);
-    expect(HADecForSun.longitude).toBeCloseTo(359.17, 2);
+    expect(HADecForSun.declination).toBeCloseTo(-23.035, 2);
+    expect(HADecForSun.hourAngle).toBeCloseTo(359.17, 2);
 
     const HADecForMars =
       AstronomicalCalculator.getHADecCoordinatesForSolarSystemObject(
@@ -152,8 +152,8 @@ describe("AstronomicalCalculator", () => {
         mars,
         Constants.JULIAN_DAY_2000,
       );
-    expect(HADecForMars.latitude).toBeCloseTo(-13.18, 2);
-    expect(HADecForMars.longitude).toBeCloseTo(309.92, 2);
+    expect(HADecForMars.declination).toBeCloseTo(-13.18, 2);
+    expect(HADecForMars.hourAngle).toBeCloseTo(309.92, 2);
   });
 
   it("should calculate HA/Dec to solar system objects in epoch day zero plus one decade correctly", function () {
@@ -163,8 +163,8 @@ describe("AstronomicalCalculator", () => {
         sun,
         Constants.JULIAN_DAY_2010,
       );
-    expect(HADecForSun.latitude).toBeCloseTo(-23.04, 2);
-    expect(HADecForSun.longitude).toBeCloseTo(179.32, 2);
+    expect(HADecForSun.declination).toBeCloseTo(-23.04, 2);
+    expect(HADecForSun.hourAngle).toBeCloseTo(179.32, 2);
 
     const HADecForMars =
       AstronomicalCalculator.getHADecCoordinatesForSolarSystemObject(
@@ -172,8 +172,8 @@ describe("AstronomicalCalculator", () => {
         mars,
         Constants.JULIAN_DAY_2010,
       );
-    expect(HADecForMars.latitude).toBeCloseTo(18.79, 2);
-    expect(HADecForMars.longitude).toBeCloseTo(318.19, 2);
+    expect(HADecForMars.declination).toBeCloseTo(18.79, 2);
+    expect(HADecForMars.hourAngle).toBeCloseTo(318.19, 2);
   });
 
   it("should calculate Alt/Az to solar system objects in epoch day zero correctly", function () {
