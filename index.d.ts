@@ -1,5 +1,5 @@
 import { AstronomicalCalculator } from "./lib/astronomical-calculator.js";
-import { SOLAR_SYSTEM_OBJECTS_LIST } from "./lib/solar-system-objects/solar-system-objects-list";
+import { SOLAR_SYSTEM_OBJECTS_LIST } from "./lib/solar-system-objects/solar-system-objects-list.js";
 
 declare module "astronomy-js" {
   export interface EphemerisType {

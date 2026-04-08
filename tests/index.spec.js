@@ -1,5 +1,5 @@
 import { initialize } from "../index.js";
-import { Constants } from "../lib/constants";
+import { Constants } from "../lib/constants.js";
 
 describe("AstronomyEngine", function () {
   const EPOCH_2000_DATE = Date.UTC(2000, 0, 1, 12);

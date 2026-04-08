@@ -1,6 +1,6 @@
-import { OrbitalParameters } from "../../lib/solar-system-objects/orbital-parameters";
+import { OrbitalParameters } from "../../lib/solar-system-objects/orbital-parameters.js";
 import { JulianDateCalculator } from "../../lib/time/julian-date-calculator.js";
-import { Constants } from "../../lib/constants";
+import { Constants } from "../../lib/constants.js";
 
 describe("OrbitalParameters", function () {
   const orbitalParameters = new OrbitalParameters(
