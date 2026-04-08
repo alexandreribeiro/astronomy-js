@@ -2,12 +2,52 @@ import { AstronomicalCalculator } from "./lib/astronomical-calculator.js";
 import { SOLAR_SYSTEM_OBJECTS_LIST } from "./lib/solar-system-objects/solar-system-objects-list";
 
 declare module "astronomy-js" {
+  export interface EphemerisType {
+    NAME: string;
+    ALTITUDE: string | null;
+    IS_GOING_UP: boolean | null;
+  }
+
+  export interface SolarSystemObject {
+    name: string;
+    meanRadius: number;
+    axialTilt: number;
+    flattening?: number;
+  }
+
+  export interface ObserverLocation {
+    longitude: number;
+    latitude: number;
+    elevation: number;
+    center: SolarSystemObject;
+  }
+
+  export interface TopocentricEquatorialSphericalCoordinates {
+    rightAscension: number;
+    declination: number;
+    distance: number;
+    observerLocation: ObserverLocation;
+  }
+
+  export interface TopocentricEquatorialHourAngleDeclinationCoordinates {
+    hourAngle: number;
+    declination: number;
+    distance: number;
+  }
+
+  export interface TopocentricHorizontalSphericalCoordinates {
+    azimuth: number;
+    altitude: number;
+    distance: number;
+    observerLocation: ObserverLocation;
+  }
 
   export class AstronomyJS {
     skyObjects: typeof SOLAR_SYSTEM_OBJECTS_LIST;
     astronomicalCalculator: AstronomicalCalculator;
     julianDate: number | null;
     simulationDate: Date | null;
+    observerLocation: ObserverLocation | null;
 
     constructor();
 
@@ -21,9 +61,9 @@ declare module "astronomy-js" {
 
     setDate(newDate: Date): void;
 
-    getSkyObjectByName(objectName: string): any | null;
+    getSkyObjectByName(objectName: string): SolarSystemObject | null;
 
-    getEphemerisTypeByName(objectName: string): any | null;
+    getEphemerisTypeByName(ephemerisTypeName: string): EphemerisType | null;
 
     setLocation(
       objectName: string,
@@ -34,19 +74,30 @@ declare module "astronomy-js" {
 
     getLatitudeLongitudeCoordinates(): { latitude: number; longitude: number };
 
-    getRADecCoordinatesForObject(objectName: string): any;
+    getRADecCoordinatesForObject(
+      objectName: string,
+      referenceDate?: Date
+    ): TopocentricEquatorialSphericalCoordinates;
 
-    getHADecCoordinatesForObject(objectName: string): any;
+    getHADecCoordinatesForObject(
+      objectName: string,
+      referenceDate?: Date
+    ): TopocentricEquatorialHourAngleDeclinationCoordinates;
 
-    getLocalMeanSiderealTime(): any;
+    getLocalMeanSiderealTime(): number;
 
-    getAltAzCoordinatesForObject(objectName: string, referenceDate?: Date): any;
+    getAltAzCoordinatesForObject(
+      objectName: string,
+      referenceDate?: Date
+    ): TopocentricHorizontalSphericalCoordinates;
 
     getEphemerisDateForObject(
       objectName: string,
       referenceDate: Date,
       ephemerisTypeName: string
-    ): any;
+    ): Date | null;
+
+    getObserverLocation(): ObserverLocation | null;
   }
 
   export function initialize(latitude: number, longitude: number): AstronomyJS;

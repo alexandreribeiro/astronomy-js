@@ -96,57 +96,46 @@ export class AstronomyJS {
   }
 
   /**
-   * @returns {{latitude: number, longitude: number}} - observer's latitude and longitude
-   */
-  getLatitudeLongitudeCoordinates() {
-    return {
-      latitude: this.observerLocation.latitude,
-      longitude: this.observerLocation.longitude,
-    };
-  }
-
-  /**
    * @param {string} objectName - name of the object
+   * @param {Date} [referenceDate] - optional reference date
    * @returns {TopocentricEquatorialSphericalCoordinates} - RA-Dec coordinates
    */
-  getRADecCoordinatesForObject(objectName) {
+  getRADecCoordinatesForObject(objectName, referenceDate) {
     const skyObject = this.getSkyObjectByName(objectName);
     if (!skyObject || this.julianDate === null) {
       throw new Error("Invalid object name or Julian date not set");
     }
+
+    const julianReferenceDate = referenceDate
+      ? JulianDateCalculator.julianDate(referenceDate)
+      : this.julianDate;
+
     return AstronomicalCalculator.getTopocentricEquatorialSphericalCoordinates(
       this.observerLocation,
       skyObject,
-      this.julianDate,
+      julianReferenceDate,
     );
   }
 
   /**
    * @param {string} objectName - name of the object
+   * @param {Date} [referenceDate] - optional reference date
    * @returns {TopocentricEquatorialHourAngleDeclinationCoordinates} - HA-Dec coordinates
    */
-  getHADecCoordinatesForObject(objectName) {
+  getHADecCoordinatesForObject(objectName, referenceDate) {
     const skyObject = this.getSkyObjectByName(objectName);
     if (!skyObject || this.julianDate === null) {
       throw new Error("Invalid object name or Julian date not set");
     }
+
+    const julianReferenceDate = referenceDate
+      ? JulianDateCalculator.julianDate(referenceDate)
+      : this.julianDate;
+
     return AstronomicalCalculator.getHADecCoordinatesForSolarSystemObject(
       this.observerLocation,
       skyObject,
-      this.julianDate,
-    );
-  }
-
-  /**
-   * @returns {number} - local mean sidereal time in degrees
-   */
-  getLocalMeanSiderealTime() {
-    if (this.julianDate === null) {
-      throw new Error("Julian date not set");
-    }
-    return AstronomicalCalculator.getLocalMeanSiderealTime(
-      this.observerLocation,
-      this.julianDate,
+      julianReferenceDate,
     );
   }
 
@@ -160,13 +149,28 @@ export class AstronomyJS {
     if (!skyObject) {
       throw new Error(`Object "${objectName}" not found`);
     }
+
     const julianReferenceDate = referenceDate
       ? JulianDateCalculator.julianDate(referenceDate)
       : this.julianDate;
+
     return AstronomicalCalculator.getTopocentricHorizontalSphericalCoordinatesForSolarSystemObject(
       this.observerLocation,
       skyObject,
       julianReferenceDate,
+    );
+  }
+
+  /**
+   * @returns {number} - local mean sidereal time in degrees
+   */
+  getLocalMeanSiderealTime() {
+    if (this.julianDate === null) {
+      throw new Error("Julian date not set");
+    }
+    return AstronomicalCalculator.getLocalMeanSiderealTime(
+      this.observerLocation,
+      this.julianDate,
     );
   }
 
@@ -197,6 +201,19 @@ export class AstronomyJS {
    */
   getObserverLocation() {
     return this.observerLocation;
+  }
+
+  /**
+   * @returns {{latitude: number, longitude: number}} - observer coordinates
+   */
+  getLatitudeLongitudeCoordinates() {
+    if (!this.observerLocation) {
+      throw new Error("Observer location not set");
+    }
+    return {
+      latitude: this.observerLocation.latitude,
+      longitude: this.observerLocation.longitude,
+    };
   }
 }
 
