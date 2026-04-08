@@ -319,6 +319,14 @@ describe("AstronomicalCalculator", () => {
     expect(
       AstronomicalCalculator.getDateForPositionalEphemeris(
         greenwichObserver,
+        new Moon(),
+        Constants.JULIAN_DAY_2000 - 0.25,
+        Constants.EPHEMERIS_TYPE.MOONRISE,
+      ).toUTCString(),
+    ).toContain("Sat, 01 Jan 2000 02:40");
+    expect(
+      AstronomicalCalculator.getDateForPositionalEphemeris(
+        greenwichObserver,
         sun,
         Constants.JULIAN_DAY_2000,
         Constants.EPHEMERIS_TYPE.SUNRISE,
@@ -383,6 +391,14 @@ describe("AstronomicalCalculator", () => {
         Constants.EPHEMERIS_TYPE.SUNSET,
       ).toUTCString(),
     ).toContain("Sat, 01 Jan 2000 16:01");
+    expect(
+      AstronomicalCalculator.getDateForPositionalEphemeris(
+        greenwichObserver,
+        new Moon(),
+        Constants.JULIAN_DAY_2000 - 0.25,
+        Constants.EPHEMERIS_TYPE.MOONSET,
+      ).toUTCString(),
+    ).toContain("Sat, 01 Jan 2000 13:12");
     expect(
       AstronomicalCalculator.getDateForPositionalEphemeris(
         greenwichObserver,

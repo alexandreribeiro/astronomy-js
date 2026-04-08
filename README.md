@@ -201,8 +201,7 @@ The library includes data for major solar system bodies and various ephemeris ev
 
 #### Ephemeris Types
 Use these names with `getEphemerisDateForObject`:
-- `SUNRISE`, `SUNSET`
-- `RISE`, `SET`
+- `RISE`, `SET`, `SUNRISE`, `SUNSET`, `MOONRISE`, `MOONSET`
 - `CIVIL_TWILIGHT_START`, `CIVIL_TWILIGHT_END`
 - `NAUTICAL_TWILIGHT_START`, `NAUTICAL_TWILIGHT_END`
 - `ASTRONOMICAL_TWILIGHT_START`, `ASTRONOMICAL_TWILIGHT_END`
