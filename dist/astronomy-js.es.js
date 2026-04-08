@@ -32,6 +32,16 @@ const I = {
       ALTITUDE: "-0.833",
       IS_GOING_UP: !1
     },
+    MOONRISE: {
+      NAME: "MOONRISE",
+      ALTITUDE: "-0.833",
+      IS_GOING_UP: !0
+    },
+    MOONSET: {
+      NAME: "MOONSET",
+      ALTITUDE: "-0.833",
+      IS_GOING_UP: !1
+    },
     GOLDEN_HOUR_START: {
       NAME: "GOLDEN_HOUR_START",
       ALTITUDE: "6",
@@ -221,7 +231,7 @@ class X {
     this.rightAscension = t, this.declination = e, this.distance = n, this.observerLocation = s;
   }
 }
-class C {
+class U {
   /**
    * @param {EclipticRectangularCoordinates} eclipticRectangularCoordinates - ecliptic rectangular coordinates
    * @returns {EclipticSphericalCoordinates} - ecliptic spherical coordinates
@@ -250,14 +260,14 @@ class C {
       t.lambda
     ), s = i.degreesToRadians(
       t.beta
-    ), a = i.degreesToRadians(e), r = Math.sin(s) * Math.cos(a) + Math.cos(s) * Math.sin(a) * Math.sin(n), o = Math.sin(n) * Math.cos(a) - Math.tan(s) * Math.sin(a), h = Math.cos(n), u = Math.atan2(o, h), d = i.modDegrees(
+    ), a = i.degreesToRadians(e), r = Math.sin(s) * Math.cos(a) + Math.cos(s) * Math.sin(a) * Math.sin(n), o = Math.sin(n) * Math.cos(a) - Math.tan(s) * Math.sin(a), h = Math.cos(n), u = Math.atan2(o, h), T = i.modDegrees(
       i.radiansToDegrees(u)
-    ), T = i.radiansToDegrees(
+    ), d = i.radiansToDegrees(
       Math.asin(r)
     );
     return new J(
-      d,
       T,
+      d,
       t.delta,
       e,
       t.center
@@ -280,19 +290,19 @@ class C {
       n
     ), u = Math.atan(
       (1 - t.center.flattening) * Math.tan(o)
-    ), d = (1 - t.center.flattening) * Math.sin(u) + e.elevation / s * Math.sin(o), T = Math.cos(u) + e.elevation / s * Math.cos(o), E = Math.asin(
+    ), T = (1 - t.center.flattening) * Math.sin(u) + e.elevation / s * Math.sin(o), d = Math.cos(u) + e.elevation / s * Math.cos(o), E = Math.asin(
       t.center.meanRadius / I.METERS_PER_AU / t.delta
-    ), _ = h - a, O = Math.atan2(
-      -T * Math.sin(E) * Math.sin(_),
-      Math.cos(r) - T * Math.sin(E) * Math.cos(_)
+    ), O = h - a, D = Math.atan2(
+      -d * Math.sin(E) * Math.sin(O),
+      Math.cos(r) - d * Math.sin(E) * Math.cos(O)
     ), c = i.modDegrees(
       i.radiansToDegrees(
-        a + O
+        a + D
       )
     ), b = i.radiansToDegrees(
       Math.atan2(
-        (Math.sin(r) - d * Math.sin(E)) * Math.cos(O),
-        Math.cos(r) - T * Math.sin(E) * Math.cos(_)
+        (Math.sin(r) - T * Math.sin(E)) * Math.cos(D),
+        Math.cos(r) - d * Math.sin(E) * Math.cos(O)
       )
     );
     return new X(
@@ -321,12 +331,12 @@ class C {
     ), u = Math.atan2(
       Math.sin(o),
       Math.cos(o) * Math.sin(a) - Math.tan(s) * Math.cos(a)
-    ), d = i.radiansToDegrees(h), T = i.modDegrees(
+    ), T = i.radiansToDegrees(h), d = i.modDegrees(
       i.radiansToDegrees(u) + 180
     );
     return new $(
-      T,
       d,
+      T,
       null,
       t.observerLocation
     );
@@ -348,23 +358,23 @@ class R {
     const s = t.center.getRectangularHeliocentricCoordinates(n), a = e.getRectangularHeliocentricCoordinates(n), r = a.minus(
       s,
       a.center
-    ), o = C.eclipticRectangularToEclipticSphericalCoordinates(
+    ), o = U.eclipticRectangularToEclipticSphericalCoordinates(
       r
-    ), h = C.eclipticSphericalToEquatorialSphericalCoordinates(
+    ), h = U.eclipticSphericalToEquatorialSphericalCoordinates(
       o,
       t.center.getObliquity(n)
-    ), u = h.rightAscension, d = h.declination, T = h.delta, E = this.getLocalMeanSiderealTime(
+    ), u = h.rightAscension, T = h.declination, d = h.delta, E = this.getLocalMeanSiderealTime(
       t,
       n
-    ), _ = new J(
+    ), O = new J(
       u,
-      d,
       T,
+      d,
       t.center.getObliquity(n),
       t.center
     );
-    return C.equatorialSphericalToTopocentricEquatorialSphericalCoordinates(
-      _,
+    return U.equatorialSphericalToTopocentricEquatorialSphericalCoordinates(
+      O,
       t,
       E
     );
@@ -384,7 +394,7 @@ class R {
       t,
       n
     );
-    return C.topocentricEquatorialToTopocentricHorizontalSphericalCoordinates(
+    return U.topocentricEquatorialToTopocentricHorizontalSphericalCoordinates(
       s,
       a
     );
@@ -622,7 +632,7 @@ class K {
     this.skyObjectType = t, this.name = e;
   }
 }
-const A = {
+const S = {
   PLANET: "planet",
   SATELLITE: "satellite",
   SUN: "sun"
@@ -645,8 +655,8 @@ class M extends K {
       t.getPerihelion(n)
     ), o = i.degreesToRadians(
       t.getAscendingNode(n)
-    ), h = t.getOrbitRadius(n), u = a + r - o, d = h * (Math.cos(o) * Math.cos(u) - Math.sin(o) * Math.sin(u) * Math.cos(s)), T = h * (Math.sin(o) * Math.cos(u) + Math.cos(o) * Math.sin(u) * Math.cos(s)), E = h * (Math.sin(u) * Math.sin(s));
-    return new N(d, T, E, null);
+    ), h = t.getOrbitRadius(n), u = a + r - o, T = h * (Math.cos(o) * Math.cos(u) - Math.sin(o) * Math.sin(u) * Math.cos(s)), d = h * (Math.sin(o) * Math.cos(u) + Math.cos(o) * Math.sin(u) * Math.cos(s)), E = h * (Math.sin(u) * Math.sin(s));
+    return new N(T, d, E, null);
   }
   /**
    * @param {number} julianDate - Julian date
@@ -665,7 +675,7 @@ class M extends K {
     throw new Error("Not implemented");
   }
 }
-class S {
+class A {
   /**
    * @constructor
    * @param {number} a0 - semi-major axis (AU)
@@ -681,8 +691,8 @@ class S {
    * @param {number} wc - longitude of perihelion (arc seconds per Julian century)
    * @param {number} lc - mean longitude (arc seconds per Julian century)
    */
-  constructor(t, e, n, s, a, r, o, h, u, d, T, E) {
-    this.a0 = t, this.e0 = e, this.i0 = n, this.o0 = s, this.w0 = a, this.l0 = r, this.ac = o, this.ec = h, this.ic = u, this.oc = d, this.wc = T, this.lc = E;
+  constructor(t, e, n, s, a, r, o, h, u, T, d, E) {
+    this.a0 = t, this.e0 = e, this.i0 = n, this.o0 = s, this.w0 = a, this.l0 = r, this.ac = o, this.ec = h, this.ic = u, this.oc = T, this.wc = d, this.lc = E;
   }
   /**
    * @param {number} julianCenturiesSinceEpoch2000 - Julian centuries since J2000.0
@@ -781,7 +791,7 @@ class S {
 }
 class Q extends M {
   constructor() {
-    const t = new S(
+    const t = new A(
       0.38709893,
       0.20563069,
       7.00487,
@@ -795,12 +805,12 @@ class Q extends M {
       573.57,
       53810162829e-2
     );
-    super(A.PLANET, "Mercury", t, 2439700, 2.04);
+    super(S.PLANET, "Mercury", t, 2439700, 2.04);
   }
 }
 class tt extends M {
   constructor() {
-    const t = new S(
+    const t = new A(
       0.72333199,
       677323e-8,
       3.39471,
@@ -814,12 +824,12 @@ class tt extends M {
       -108.8,
       21066413606e-2
     );
-    super(A.PLANET, "Venus", t, 6051800, 2.64);
+    super(S.PLANET, "Venus", t, 6051800, 2.64);
   }
 }
 class Y extends M {
   constructor() {
-    const t = new S(
+    const t = new A(
       1.00000011,
       0.01671022,
       5e-5,
@@ -834,7 +844,7 @@ class Y extends M {
       12959774063e-2
     );
     super(
-      A.PLANET,
+      S.PLANET,
       "Earth",
       t,
       6378137,
@@ -853,7 +863,7 @@ class Y extends M {
 }
 class et extends M {
   constructor() {
-    const t = new S(
+    const t = new A(
       1.52366231,
       0.09341233,
       1.85061,
@@ -867,12 +877,12 @@ class et extends M {
       1560.78,
       6890510378e-2
     );
-    super(A.PLANET, "Mars", t, 3389500, 25.19);
+    super(S.PLANET, "Mars", t, 3389500, 25.19);
   }
 }
 class nt extends M {
   constructor() {
-    const t = new S(
+    const t = new A(
       5.20336301,
       0.04839266,
       1.3053,
@@ -886,12 +896,12 @@ class nt extends M {
       839.93,
       1092507835e-2
     );
-    super(A.PLANET, "Jupiter", t, 69911e3, 3.13);
+    super(S.PLANET, "Jupiter", t, 69911e3, 3.13);
   }
 }
 class st extends M {
   constructor() {
-    const t = new S(
+    const t = new A(
       9.53707032,
       0.0541506,
       2.48446,
@@ -905,12 +915,12 @@ class st extends M {
       -1948.89,
       440105295e-2
     );
-    super(A.PLANET, "Saturn", t, 58232e3, 26.73);
+    super(S.PLANET, "Saturn", t, 58232e3, 26.73);
   }
 }
 class at extends M {
   constructor() {
-    const t = new S(
+    const t = new A(
       19.19126393,
       0.04716771,
       0.76986,
@@ -924,12 +934,12 @@ class at extends M {
       1312.56,
       154254779e-2
     );
-    super(A.PLANET, "Uranus", t, 25362e3, 97.77);
+    super(S.PLANET, "Uranus", t, 25362e3, 97.77);
   }
 }
 class it extends M {
   constructor() {
-    const t = new S(
+    const t = new A(
       30.06896348,
       858587e-8,
       1.76917,
@@ -943,7 +953,7 @@ class it extends M {
       -844.43,
       786449.21
     );
-    super(A.PLANET, "Neptune", t, 24622e3, 28.32);
+    super(S.PLANET, "Neptune", t, 24622e3, 28.32);
   }
 }
 const ot = [
@@ -958,7 +968,7 @@ const ot = [
 ];
 class rt extends M {
   constructor() {
-    const t = new S(
+    const t = new A(
       39.48168677,
       0.24880766,
       17.14175,
@@ -972,16 +982,16 @@ class rt extends M {
       7.765,
       145.2078
     );
-    super(A.PLANET, "Pluto", t, 1188300, 122.53);
+    super(S.PLANET, "Pluto", t, 1188300, 122.53);
   }
 }
 const ct = [new rt()];
 class lt extends M {
   constructor() {
-    super(A.SATELLITE, "Moon", null, 1737400, 1.5424);
+    super(S.SATELLITE, "Moon", null, 1737400, 1.5424);
   }
   getRectangularHeliocentricCoordinates(t) {
-    const e = g.julianCenturiesSinceEpoch2000(t), n = e * e, s = n * e, a = s * e, r = 218.3164477 + 481267.88123421 * e - 15786e-7 * n + s / 538841 - a / 65194e3, o = 297.8501921 + 445267.1114034 * e - 18819e-7 * n + s / 545868 - a / 113065e3, h = 357.5291092 + 35999.0502909 * e - 1536e-7 * n + s / 2449e4, u = 134.9633964 + 477198.8675055 * e + 87414e-7 * n + s / 69699 - a / 14712e3, d = 93.272095 + 483202.0175233 * e - 36539e-7 * n - s / 3526e3 + a / 86331e4, T = 119.75 + 131.849 * e, E = 53.09 + 479264.29 * e, _ = 313.45 + 481266.484 * e, O = 1 - 2516e-6 * e - 74e-7 * n, c = (D) => D * Math.PI / 180, b = [
+    const e = g.julianCenturiesSinceEpoch2000(t), n = e * e, s = n * e, a = s * e, r = 218.3164477 + 481267.88123421 * e - 15786e-7 * n + s / 538841 - a / 65194e3, o = 297.8501921 + 445267.1114034 * e - 18819e-7 * n + s / 545868 - a / 113065e3, h = 357.5291092 + 35999.0502909 * e - 1536e-7 * n + s / 2449e4, u = 134.9633964 + 477198.8675055 * e + 87414e-7 * n + s / 69699 - a / 14712e3, T = 93.272095 + 483202.0175233 * e - 36539e-7 * n - s / 3526e3 + a / 86331e4, d = 119.75 + 131.849 * e, E = 53.09 + 479264.29 * e, O = 313.45 + 481266.484 * e, D = 1 - 2516e-6 * e - 74e-7 * n, c = (_) => _ * Math.PI / 180, b = [
       [0, 0, 1, 0, 6288774, -20905355],
       [2, 0, -1, 0, 1274027, -3699111],
       [2, 0, 0, 0, 658314, -2955968],
@@ -1105,26 +1115,26 @@ class lt extends M {
       [2, -2, 0, 1, 107]
     ];
     let y = 0;
-    for (const [D, m, P, L, w, j] of b) {
-      const f = D * c(o) + m * c(h) + P * c(u) + L * c(d);
-      y += w * Math.pow(O, Math.abs(m)) * Math.sin(f);
+    for (const [_, m, P, L, w, j] of b) {
+      const f = _ * c(o) + m * c(h) + P * c(u) + L * c(T);
+      y += w * Math.pow(D, Math.abs(m)) * Math.sin(f);
     }
     let z = 0;
-    for (const [D, m, P, L, w, j] of b) {
-      const f = D * c(o) + m * c(h) + P * c(u) + L * c(d);
-      z += j * Math.pow(O, Math.abs(m)) * Math.cos(f);
+    for (const [_, m, P, L, w, j] of b) {
+      const f = _ * c(o) + m * c(h) + P * c(u) + L * c(T);
+      z += j * Math.pow(D, Math.abs(m)) * Math.cos(f);
     }
     let p = 0;
-    for (const [D, m, P, L, w] of k) {
-      const j = D * c(o) + m * c(h) + P * c(u) + L * c(d);
-      p += w * Math.pow(O, Math.abs(m)) * Math.sin(j);
+    for (const [_, m, P, L, w] of k) {
+      const j = _ * c(o) + m * c(h) + P * c(u) + L * c(T);
+      p += w * Math.pow(D, Math.abs(m)) * Math.sin(j);
     }
-    y = y + 3958 * Math.sin(c(T)) + 1962 * Math.sin(c(r - d)) + 318 * Math.sin(c(E)), p = p - 2235 * Math.sin(c(r)) + 382 * Math.sin(c(_)) + 175 * Math.sin(c(T - d)) + 175 * Math.sin(c(T + d)) + 127 * Math.sin(c(r - u)) - 115 * Math.sin(c(r + u));
-    let W = r + y / 1e6, B = p / 1e6, V = 385000.56 + z / 1e3, q = c(W), U = c(B), H = V / 1495978707e-1;
+    y = y + 3958 * Math.sin(c(d)) + 1962 * Math.sin(c(r - T)) + 318 * Math.sin(c(E)), p = p - 2235 * Math.sin(c(r)) + 382 * Math.sin(c(O)) + 175 * Math.sin(c(d - T)) + 175 * Math.sin(c(d + T)) + 127 * Math.sin(c(r - u)) - 115 * Math.sin(c(r + u));
+    let W = r + y / 1e6, B = p / 1e6, V = 385000.56 + z / 1e3, q = c(W), C = c(B), H = V / 1495978707e-1;
     const G = {
-      x: H * Math.cos(U) * Math.cos(q),
-      y: H * Math.cos(U) * Math.sin(q),
-      z: H * Math.sin(U)
+      x: H * Math.cos(C) * Math.cos(q),
+      y: H * Math.cos(C) * Math.sin(q),
+      z: H * Math.sin(C)
     }, F = new Y().getRectangularHeliocentricCoordinates(t);
     return new N(
       F.x + G.x,
@@ -1136,21 +1146,21 @@ class lt extends M {
 const ht = [new lt()];
 class ut extends M {
   constructor() {
-    super(A.SUN, "Sun", null, 695508e3, 0);
+    super(S.SUN, "Sun", null, 695508e3, 0);
   }
   getRectangularHeliocentricCoordinates(t) {
     return new N(0, 0, 0, this);
   }
 }
-const dt = [new ut()].concat(ot).concat(ht).concat(ct);
-class Tt {
+const Tt = [new ut()].concat(ot).concat(ht).concat(ct);
+class dt {
   constructor(t, e, n, s) {
     this.longitude = t, this.latitude = e, this.elevation = n, this.center = s;
   }
 }
 class x {
   constructor() {
-    this.skyObjects = [...dt], this.observerLocation = null, this.julianDate = null, this.simulationDate = null;
+    this.skyObjects = [...Tt], this.observerLocation = null, this.julianDate = null, this.simulationDate = null;
   }
   /**
    * @param {number} latitude - latitude in degrees
@@ -1211,7 +1221,7 @@ class x {
     const a = this.getSkyObjectByName(t);
     if (!a)
       throw new Error(`Solar system object "${t}" not found`);
-    this.observerLocation = new Tt(
+    this.observerLocation = new dt(
       n,
       e,
       s,
