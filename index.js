@@ -32,10 +32,10 @@ export class AstronomyJS {
   }
 
   /**
-   * @param {number} newJulianDate - new Julian date
+   * @param {number} julianDate - new Julian date
    */
-  setJulianDate(newJulianDate) {
-    this.julianDate = newJulianDate;
+  setJulianDate(julianDate) {
+    this.julianDate = julianDate;
   }
 
   /**
@@ -98,9 +98,9 @@ export class AstronomyJS {
   /**
    * @param {string} objectName - name of the object
    * @param {Date} [referenceDate] - optional reference date
-   * @returns {TopocentricEquatorialSphericalCoordinates} - RA-Dec coordinates
+   * @returns {TopocentricEquatorialSphericalCoordinates} - Right Ascension and Declination coordinates
    */
-  getRADecCoordinatesForObject(objectName, referenceDate) {
+  getRightAscensionDeclinationCoordinatesForObject(objectName, referenceDate) {
     const skyObject = this.getSkyObjectByName(objectName);
     if (!skyObject || this.julianDate === null) {
       throw new Error("Invalid object name or Julian date not set");
@@ -120,9 +120,9 @@ export class AstronomyJS {
   /**
    * @param {string} objectName - name of the object
    * @param {Date} [referenceDate] - optional reference date
-   * @returns {TopocentricEquatorialHourAngleDeclinationCoordinates} - HA-Dec coordinates
+   * @returns {TopocentricEquatorialHourAngleDeclinationCoordinates} - Hour Angle and Declination coordinates
    */
-  getHADecCoordinatesForObject(objectName, referenceDate) {
+  getHourAngleDeclinationCoordinatesForObject(objectName, referenceDate) {
     const skyObject = this.getSkyObjectByName(objectName);
     if (!skyObject || this.julianDate === null) {
       throw new Error("Invalid object name or Julian date not set");
@@ -142,9 +142,9 @@ export class AstronomyJS {
   /**
    * @param {string} objectName - name of the object
    * @param {Date} [referenceDate] - optional reference date
-   * @returns {TopocentricHorizontalSphericalCoordinates} - Alt-Az coordinates
+   * @returns {TopocentricHorizontalSphericalCoordinates} - Altitude and Azimuth coordinates
    */
-  getAltAzCoordinatesForObject(objectName, referenceDate) {
+  getAltitudeAzimuthCoordinatesForObject(objectName, referenceDate) {
     const skyObject = this.getSkyObjectByName(objectName);
     if (!skyObject) {
       throw new Error(`Object "${objectName}" not found`);
@@ -204,11 +204,11 @@ export class AstronomyJS {
   }
 
   /**
-   * @returns {{latitude: number, longitude: number}} - observer coordinates
+   * @returns {{latitude: number, longitude: number}|null} - current observer coordinates or null if not set
    */
   getLatitudeLongitudeCoordinates() {
     if (!this.observerLocation) {
-      throw new Error("Observer location not set");
+      return null;
     }
     return {
       latitude: this.observerLocation.latitude,

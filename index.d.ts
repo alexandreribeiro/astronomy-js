@@ -55,7 +55,7 @@ declare module "astronomy-js" {
 
     getJulianDate(): number | null;
 
-    setJulianDate(newJulianDate: number): void;
+    setJulianDate(julianDate: number): void;
 
     getDate(): Date | null;
 

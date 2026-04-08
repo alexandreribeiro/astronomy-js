@@ -61,23 +61,23 @@ describe("AstronomyEngine", function () {
   });
 
   it("should get right ascension and declination for sun in epoch J2000", function () {
-    const raDec = astronomyEngine.getRADecCoordinatesForObject("Sun");
+    const raDec = astronomyEngine.getRightAscensionDeclinationCoordinatesForObject("Sun");
     expect(raDec.declination).toBeCloseTo(-23.035, 2);
     expect(raDec.rightAscension).toBeCloseTo(281.29, 2);
   });
 
   it("should get local hour angle and declination for sun in epoch J2000", function () {
-    const haDec = astronomyEngine.getHADecCoordinatesForObject("Sun");
+    const haDec = astronomyEngine.getHourAngleDeclinationCoordinatesForObject("Sun");
     expect(haDec.declination).toBeCloseTo(-23.035, 2);
     expect(haDec.hourAngle).toBeCloseTo(359.17, 2);
   });
 
   it("should get altitude and azimuth for sun in epoch J2000", function () {
-    let altAz = astronomyEngine.getAltAzCoordinatesForObject("Sun");
+    let altAz = astronomyEngine.getAltitudeAzimuthCoordinatesForObject("Sun");
     expect(altAz.altitude).toBeCloseTo(15.48, 2);
     expect(altAz.azimuth).toBeCloseTo(179.21, 2);
 
-    altAz = astronomyEngine.getAltAzCoordinatesForObject(
+    altAz = astronomyEngine.getAltitudeAzimuthCoordinatesForObject(
       "Sun",
       EPOCH_2000_DATE,
     );
