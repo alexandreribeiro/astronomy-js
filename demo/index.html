@@ -260,9 +260,9 @@
         let solarSystemTableRows = [];
         for (let i in solarSystemObjectsToDisplay) {
             const objectName = solarSystemObjectsToDisplay[i];
-            let altAzCoordinates = astronomyJS.getAltAzCoordinatesForObject(objectName).toDegrees();
-            let raDecCoordinates = astronomyJS.getRADecCoordinatesForObject(objectName).toHours();
-            solarSystemTableRows.push([objectName, altAzCoordinates.latitude, altAzCoordinates.longitude, raDecCoordinates.longitude, raDecCoordinates.latitude]);
+            let altitudeAzimuthCoordinates = astronomyJS.getAltitudeAzimuthCoordinatesForObject(objectName).toDegrees();
+            let rightAscensionDeclinationCoordinates = astronomyJS.getRightAscensionDeclinationCoordinatesForObject(objectName).toHours();
+            solarSystemTableRows.push([objectName, altitudeAzimuthCoordinates.latitude, altitudeAzimuthCoordinates.longitude, rightAscensionDeclinationCoordinates.longitude, rightAscensionDeclinationCoordinates.latitude]);
         }
         addValuesToTable(solarSystemTable, solarSystemTableRows);
 
