@@ -7,7 +7,7 @@ import { EclipticSphericalCoordinates } from "../../lib/coordinates/types/eclipt
 import { Constants } from "../../lib/constants.js";
 import { EquatorialSphericalCoordinates } from "../../lib/coordinates/types/equatorial-spherical-coordinates.js";
 import { Earth } from "../../lib/solar-system-objects/planets/earth.js";
-import { TopocentricEquatorialRightAscensionDeclinationCoordinates } from "../../lib/coordinates/types/topocentric-equatorial-right-ascension-declination-coordinates.js";
+import { TopocentricEquatorialSphericalCoordinates } from "../../lib/coordinates/types/topocentric-equatorial-spherical-coordinates.js";
 
 const Sun = new SkyObject(SkyObjectType.STAR, "Sun");
 
@@ -255,7 +255,7 @@ describe("CoordinatesConverter.eclipticSphericalCoordinatesToEquatorialSpherical
 
   it("converts moon JD2000 topocentric to horizontal spherical coordinates correctly", () => {
     const topocentricEquatorialRightAscensionDeclinationCoordinates =
-      new TopocentricEquatorialRightAscensionDeclinationCoordinates(
+      new TopocentricEquatorialSphericalCoordinates(
         221.95509118949212,
         -11.652512735856815,
       );
