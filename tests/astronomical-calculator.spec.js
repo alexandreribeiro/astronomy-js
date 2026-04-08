@@ -28,7 +28,7 @@ describe("AstronomicalCalculator", () => {
 
   it("gets JD2000 horizontalSphericalCoordinates for moon for a Greenwich observer", () => {
     const horizontalSphericalCoordinates =
-      AstronomicalCalculator.getHorizontalSphericalCoordinatesForSolarSystemObject(
+      AstronomicalCalculator.getTopocentricHorizontalSphericalCoordinatesForSolarSystemObject(
         greenwichObserver,
         moon,
         Constants.JULIAN_DAY_2000,
@@ -89,7 +89,7 @@ describe("AstronomicalCalculator", () => {
 
   it("should calculate RA/Dec to solar system objects in epoch day zero correctly", function () {
     const RADecForSun =
-      AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
+      AstronomicalCalculator.getTopocentricEquatorialSphericalCoordinates(
         greenwichObserver,
         sun,
         Constants.JULIAN_DAY_2000,
@@ -98,7 +98,7 @@ describe("AstronomicalCalculator", () => {
     expect(RADecForSun.rightAscension).toBeCloseTo(281.29, 2);
 
     const RADecForMoon =
-      AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
+      AstronomicalCalculator.getTopocentricEquatorialSphericalCoordinates(
         greenwichObserver,
         moon,
         Constants.JULIAN_DAY_2000,
@@ -107,7 +107,7 @@ describe("AstronomicalCalculator", () => {
     expect(RADecForMoon.rightAscension).toBeCloseTo(221.95, 1);
 
     const RADecForMars =
-      AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
+      AstronomicalCalculator.getTopocentricEquatorialSphericalCoordinates(
         greenwichObserver,
         mars,
         Constants.JULIAN_DAY_2000,
@@ -118,7 +118,7 @@ describe("AstronomicalCalculator", () => {
 
   it("should calculate RA/Dec to solar system objects in epoch day zero plus one decade correctly", function () {
     const RADecForSun =
-      AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
+      AstronomicalCalculator.getTopocentricEquatorialSphericalCoordinates(
         greenwichObserver,
         sun,
         Constants.JULIAN_DAY_2010,
@@ -127,7 +127,7 @@ describe("AstronomicalCalculator", () => {
     expect(RADecForSun.rightAscension).toBeCloseTo(281.22, 2);
 
     const RADecForMars =
-      AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
+      AstronomicalCalculator.getTopocentricEquatorialSphericalCoordinates(
         greenwichObserver,
         mars,
         Constants.JULIAN_DAY_2010,
@@ -178,7 +178,7 @@ describe("AstronomicalCalculator", () => {
 
   it("should calculate Alt/Az to solar system objects in epoch day zero correctly", function () {
     const AltAzForSun =
-      AstronomicalCalculator.getHorizontalSphericalCoordinatesForSolarSystemObject(
+      AstronomicalCalculator.getTopocentricHorizontalSphericalCoordinatesForSolarSystemObject(
         greenwichObserver,
         sun,
         Constants.JULIAN_DAY_2000,
@@ -187,7 +187,7 @@ describe("AstronomicalCalculator", () => {
     expect(AltAzForSun.azimuth).toBeCloseTo(179.21, 2);
 
     const AltAzForMoon =
-      AstronomicalCalculator.getHorizontalSphericalCoordinatesForSolarSystemObject(
+      AstronomicalCalculator.getTopocentricHorizontalSphericalCoordinatesForSolarSystemObject(
         greenwichObserver,
         moon,
         Constants.JULIAN_DAY_2000,
@@ -196,7 +196,7 @@ describe("AstronomicalCalculator", () => {
     expect(AltAzForMoon.azimuth).toBeCloseTo(237.79, 1);
 
     const AltAzForMars =
-      AstronomicalCalculator.getHorizontalSphericalCoordinatesForSolarSystemObject(
+      AstronomicalCalculator.getTopocentricHorizontalSphericalCoordinatesForSolarSystemObject(
         greenwichObserver,
         mars,
         Constants.JULIAN_DAY_2000,

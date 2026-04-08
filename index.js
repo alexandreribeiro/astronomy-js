@@ -76,7 +76,7 @@ export class AstronomyJS {
     if (!skyObject || this.julianDate === null) {
       throw new Error("Invalid object name or Julian date not set");
     }
-    return AstronomicalCalculator.getTopocentricEquatorialRightAscensionDeclinationCoordinates(
+    return AstronomicalCalculator.getTopocentricEquatorialSphericalCoordinates(
       this.observerLocation,
       skyObject,
       this.julianDate,
@@ -113,7 +113,7 @@ export class AstronomyJS {
     const julianReferenceDate = referenceDate
       ? JulianDateCalculator.julianDate(referenceDate)
       : this.julianDate;
-    return AstronomicalCalculator.getHorizontalSphericalCoordinatesForSolarSystemObject(
+    return AstronomicalCalculator.getTopocentricHorizontalSphericalCoordinatesForSolarSystemObject(
       this.observerLocation,
       skyObject,
       julianReferenceDate,
