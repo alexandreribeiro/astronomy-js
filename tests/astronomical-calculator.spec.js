@@ -6,6 +6,7 @@ import { ObserverLocation } from "../lib/coordinates/types/observer-location.js"
 import { Moon } from "../lib/solar-system-objects/satellites/moon.js";
 import { Mars } from "../lib/solar-system-objects/planets/mars.js";
 import { Sun } from "../lib/solar-system-objects/sun.js";
+import { Venus } from "../lib/solar-system-objects/planets/venus.js";
 
 describe("AstronomicalCalculator", () => {
   const mars = new Mars();
@@ -439,5 +440,27 @@ describe("AstronomicalCalculator", () => {
         Constants.EPHEMERIS_TYPE.SUNSET,
       ).toUTCString(),
     ).toContain("Mon, 31 Jan 2000 13:44");
+  });
+
+  describe("getIlluminatedFraction", () => {
+    it("returns the expected illuminated fraction for the Moon at JD2000", () => {
+      expect(
+        AstronomicalCalculator.getIlluminatedFraction(
+          greenwichObserver,
+          moon,
+          Constants.JULIAN_DAY_2000,
+        ),
+      ).toBeCloseTo(0.23, 2);
+    });
+
+    it("returns the expected illuminated fraction for Venus at JD2000", () => {
+      expect(
+        AstronomicalCalculator.getIlluminatedFraction(
+          greenwichObserver,
+          new Venus(),
+          Constants.JULIAN_DAY_2000,
+        ),
+      ).toBeCloseTo(0.758, 2);
+    });
   });
 });

@@ -137,6 +137,19 @@ The main class to interact with the library.
     }
     */
     ```
+- `getIlluminatedFraction(objectName, [referenceDate])`
+  - Calculates the illuminated fraction for light coming from the Sun for a given object.
+  - **Parameters:**
+    - `objectName` (string): Name of the object (e.g., "Moon").
+    - `referenceDate` (Date, optional): Overrides the instance date.
+  - **Returns:** Number between 0 and 1 representing the illuminated fraction.
+  - **Example:**
+    ```javascript
+    const illuminatedFraction = astronomy.getIlluminatedFraction("Moon");
+    /*
+    Returns: 0.253
+    */
+    ```
 - `getEphemerisDateForObject(objectName, referenceDate, ephemerisTypeName)`
   - Finds the date of an ephemeris event (e.g., "Rise", "Set").
   - **Parameters:**

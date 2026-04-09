@@ -162,6 +162,28 @@ export class AstronomyJS {
   }
 
   /**
+   * @param {string} objectName - name of the object
+   * @param {Date} [referenceDate] - optional reference date
+   * @returns {number} - fraction between 0 and 1 representing the illumination of the object
+   */
+  getIlluminatedFraction(objectName, referenceDate) {
+    const skyObject = this.getSkyObjectByName(objectName);
+    if (!skyObject) {
+      throw new Error(`Object "${objectName}" not found`);
+    }
+
+    const julianReferenceDate = referenceDate
+      ? JulianDateCalculator.julianDate(referenceDate)
+      : this.julianDate;
+
+    return AstronomicalCalculator.getIlluminatedFraction(
+      this.observerLocation,
+      skyObject,
+      julianReferenceDate,
+    );
+  }
+
+  /**
    * @returns {number} - local mean sidereal time in degrees
    */
   getLocalMeanSiderealTime() {

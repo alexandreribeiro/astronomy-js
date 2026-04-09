@@ -74,19 +74,24 @@ declare module "astronomy-js" {
 
     getLatitudeLongitudeCoordinates(): { latitude: number; longitude: number };
 
-    getRADecCoordinatesForObject(
+    getRightAscensionDeclinationCoordinatesForObject(
       objectName: string,
       referenceDate?: Date
     ): TopocentricEquatorialSphericalCoordinates;
 
-    getHADecCoordinatesForObject(
+    getHourAngleDeclinationCoordinatesForObject(
       objectName: string,
       referenceDate?: Date
     ): TopocentricEquatorialHourAngleDeclinationCoordinates;
 
+    getIlluminatedFraction(
+      objectName: string,
+      referenceDate?: Date
+    ): number;
+
     getLocalMeanSiderealTime(): number;
 
-    getAltAzCoordinatesForObject(
+    getAltitudeAzimuthCoordinatesForObject(
       objectName: string,
       referenceDate?: Date
     ): TopocentricHorizontalSphericalCoordinates;
