@@ -632,7 +632,7 @@ class A {
    * @param {number} julianDate - Julian date
    * @returns {number} - fraction between 0 and 1 representing the illumination of the object
    */
-  static getIlluminatedFraction(t, e, n) {
+  static getIlluminatedFractionForObject(t, e, n) {
     const s = t.center.getRectangularHeliocentricCoordinates(n), a = e.getRectangularHeliocentricCoordinates(n), o = {
       x: -a.x,
       y: -a.y,
@@ -1144,13 +1144,13 @@ class lt extends M {
     ];
     let y = 0;
     for (const [_, R, P, b, p, w] of L) {
-      const F = _ * l(i) + R * l(c) + P * l(h) + b * l(d);
-      y += p * Math.pow(D, Math.abs(R)) * Math.sin(F);
+      const x = _ * l(i) + R * l(c) + P * l(h) + b * l(d);
+      y += p * Math.pow(D, Math.abs(R)) * Math.sin(x);
     }
     let z = 0;
     for (const [_, R, P, b, p, w] of L) {
-      const F = _ * l(i) + R * l(c) + P * l(h) + b * l(d);
-      z += w * Math.pow(D, Math.abs(R)) * Math.cos(F);
+      const x = _ * l(i) + R * l(c) + P * l(h) + b * l(d);
+      z += w * Math.pow(D, Math.abs(R)) * Math.cos(x);
     }
     let j = 0;
     for (const [_, R, P, b, p] of Y) {
@@ -1163,11 +1163,11 @@ class lt extends M {
       x: H * Math.cos(C) * Math.cos(q),
       y: H * Math.cos(C) * Math.sin(q),
       z: H * Math.sin(C)
-    }, x = new k().getRectangularHeliocentricCoordinates(t);
+    }, F = new k().getRectangularHeliocentricCoordinates(t);
     return new N(
-      x.x + G.x,
-      x.y + G.y,
-      x.z + G.z
+      F.x + G.x,
+      F.y + G.y,
+      F.z + G.z
     );
   }
 }
@@ -1309,12 +1309,12 @@ class f {
    * @param {Date} [referenceDate] - optional reference date
    * @returns {number} - fraction between 0 and 1 representing the illumination of the object
    */
-  getIlluminatedFraction(t, e) {
+  getIlluminatedFractionForObject(t, e) {
     const n = this.getSkyObjectByName(t);
     if (!n)
       throw new Error(`Object "${t}" not found`);
     const s = e ? g.julianDate(e) : this.julianDate;
-    return A.getIlluminatedFraction(
+    return A.getIlluminatedFractionForObject(
       this.observerLocation,
       n,
       s
