@@ -137,7 +137,7 @@ The main class to interact with the library.
     }
     */
     ```
-- `getIlluminatedFraction(objectName, [referenceDate])`
+- `getIlluminatedFractionForObject(objectName, [referenceDate])`
   - Calculates the illuminated fraction for light coming from the Sun for a given object.
   - **Parameters:**
     - `objectName` (string): Name of the object (e.g., "Moon").
@@ -145,7 +145,7 @@ The main class to interact with the library.
   - **Returns:** Number between 0 and 1 representing the illuminated fraction.
   - **Example:**
     ```javascript
-    const illuminatedFraction = astronomy.getIlluminatedFraction("Moon");
+    const illuminatedFraction = astronomy.getIlluminatedFractionForObject("Moon");
     /*
     Returns: 0.253
     */

@@ -84,7 +84,7 @@ declare module "astronomy-js" {
       referenceDate?: Date
     ): TopocentricEquatorialHourAngleDeclinationCoordinates;
 
-    getIlluminatedFraction(
+    getIlluminatedFractionForObject(
       objectName: string,
       referenceDate?: Date
     ): number;

@@ -442,10 +442,10 @@ describe("AstronomicalCalculator", () => {
     ).toContain("Mon, 31 Jan 2000 13:44");
   });
 
-  describe("getIlluminatedFraction", () => {
+  describe("getIlluminatedFractionForObject", () => {
     it("returns the expected illuminated fraction for the Moon at JD2000", () => {
       expect(
-        AstronomicalCalculator.getIlluminatedFraction(
+        AstronomicalCalculator.getIlluminatedFractionForObject(
           greenwichObserver,
           moon,
           Constants.JULIAN_DAY_2000,
@@ -455,7 +455,7 @@ describe("AstronomicalCalculator", () => {
 
     it("returns the expected illuminated fraction for Venus at JD2000", () => {
       expect(
-        AstronomicalCalculator.getIlluminatedFraction(
+        AstronomicalCalculator.getIlluminatedFractionForObject(
           greenwichObserver,
           new Venus(),
           Constants.JULIAN_DAY_2000,

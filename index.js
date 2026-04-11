@@ -166,7 +166,7 @@ export class AstronomyJS {
    * @param {Date} [referenceDate] - optional reference date
    * @returns {number} - fraction between 0 and 1 representing the illumination of the object
    */
-  getIlluminatedFraction(objectName, referenceDate) {
+  getIlluminatedFractionForObject(objectName, referenceDate) {
     const skyObject = this.getSkyObjectByName(objectName);
     if (!skyObject) {
       throw new Error(`Object "${objectName}" not found`);
@@ -176,7 +176,7 @@ export class AstronomyJS {
       ? JulianDateCalculator.julianDate(referenceDate)
       : this.julianDate;
 
-    return AstronomicalCalculator.getIlluminatedFraction(
+    return AstronomicalCalculator.getIlluminatedFractionForObject(
       this.observerLocation,
       skyObject,
       julianReferenceDate,

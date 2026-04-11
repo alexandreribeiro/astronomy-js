@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added the Moon as a supported solar system object.
-- Added the `getIlluminatedFraction` method to `AstronomyJS`.
+- Added the `getIlluminatedFractionForObject` method to `AstronomyJS`.
 - Added the `getLocalMeanSiderealTime` method to `AstronomyJS`.
 - Expanded JSDoc coverage across the library.
 - Exposed new types in `index.d.ts`:

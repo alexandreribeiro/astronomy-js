@@ -95,10 +95,10 @@ describe("AstronomyEngine", function () {
     ).toContain("Sat, 01 Jan 2000 08:05");
   });
 
-  describe("getIlluminatedFraction", () => {
+  describe("getIlluminatedFractionForObject", () => {
     it("returns the expected illuminated fraction for the Moon at JD2000", () => {
       astronomyEngine.setDate(EPOCH_2000_DATE);
-      expect(astronomyEngine.getIlluminatedFraction("Moon")).toBeCloseTo(
+      expect(astronomyEngine.getIlluminatedFractionForObject("Moon")).toBeCloseTo(
         0.23,
         2,
       );
@@ -106,20 +106,20 @@ describe("AstronomyEngine", function () {
 
     it("returns the expected illuminated fraction for Venus at JD2000", () => {
       astronomyEngine.setDate(EPOCH_2000_DATE);
-      expect(astronomyEngine.getIlluminatedFraction("Venus")).toBeCloseTo(
+      expect(astronomyEngine.getIlluminatedFractionForObject("Venus")).toBeCloseTo(
         0.758,
         2,
       );
     });
     it("returns the expected illuminated fraction for the Moon at JD2000 using date", () => {
       expect(
-        astronomyEngine.getIlluminatedFraction("Moon", EPOCH_2000_DATE),
+        astronomyEngine.getIlluminatedFractionForObject("Moon", EPOCH_2000_DATE),
       ).toBeCloseTo(0.23, 2);
     });
 
     it("returns the expected illuminated fraction for Venus at JD2000 using date", () => {
       expect(
-        astronomyEngine.getIlluminatedFraction("Venus", EPOCH_2000_DATE),
+        astronomyEngine.getIlluminatedFractionForObject("Venus", EPOCH_2000_DATE),
       ).toBeCloseTo(0.758, 2);
     });
   });
