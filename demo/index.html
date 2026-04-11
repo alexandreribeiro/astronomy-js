@@ -1,300 +1,326 @@
 <html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <title>AstronomyJS</title>
-    <style>
-        .card-image svg {
-            display: block;
-            margin: 0 auto;
-        }
+  <meta charset="UTF-8">
+  <title>AstronomyJS</title>
+  <style>
+      .card-image svg {
+          display: block;
+          margin: 0 auto;
+      }
 
-        .container {
-            max-width: 1024px !important;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
+      .container {
+          max-width: 1024px !important;
+          margin-left: auto;
+          margin-right: auto;
+          padding-left: 1rem;
+          padding-right: 1rem;
+      }
 
-        :root {
-            --pico-font-size: 100% !important;
-        }
+      :root {
+          --pico-font-size: 100% !important;
+      }
 
-        #timeLabel {
-            width: 5rem;
-        }
+      #timeLabel {
+          width: 5rem;
+      }
 
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
-    <link rel="stylesheet" href="pico.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+      #map {
+          height: 400px;
+          width: 100%;
+      }
+  </style>
+  <link rel="stylesheet" href="pico.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body class="container">
 <header>
-    <div style="display: flex; align-items: center; gap: 16px;">
-        <img src="../images/icon.png" alt="AstronomyJS Logo" width="144">
-        <div>
-            <h1>AstronomyJS</h1>
-            <p>Accurate and accessible JavaScript tools for astronomy calculations.</p>
-        </div>
+  <div style="display: flex; align-items: center; gap: 16px;">
+    <img src="../images/icon.png" alt="AstronomyJS Logo" width="144">
+    <div>
+      <h1>AstronomyJS</h1>
+      <p>Accurate and accessible JavaScript tools for astronomy calculations.</p>
     </div>
+  </div>
 
 </header>
 
 <main>
-    <article>
-        <form>
-            <div class="grid">
-                <div>
-                    <label for="datePicker">Date</label>
-                    <input type="date" id="datePicker"/>
-                </div>
-                <div>
-                    <label for="timeRange">Time</label>
-                    <div role="group" style="display: flex; align-items: center; gap: 1rem;">
-                        <input type="range" id="timeRange" min="0" max="1440" value="0" step="1"/>
-                        <output id="timeLabel">00:00</output>
-                        <button id="nowButton">Now</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <details>
-            <summary role="button" class="outline contrast">Location</summary>
-            <form>
-                <div class="grid">
-                    <label>
-                        Latitude:
-                        <input type="number" step="0.00001" id="latitudeInput">
-                    </label>
-                    <label>
-                        Longitude:
-                        <input type="number" step="0.00001" id="longitudeInput">
-                    </label>
-                </div>
-            </form>
-            <div id="map"></div>
-        </details>
-    </article>
-
-        <article>
-            <header>Sky Position</header>
-            <table id="solarSystemTable">
-                <thead>
-                <tr>
-                    <th>Object</th>
-                    <th>Altitude</th>
-                    <th>Azimuth</th>
-                    <th>Right Ascension</th>
-                    <th>Declination</th>
-                </tr>
-                </thead>
-            </table>
-        </article>
-
-        <div class="grid">
-        <article>
-            <header>Ephemerides</header>
-            <table id="ephemeridesTable">
-                <thead>
-                <tr>
-                    <th>Object</th>
-                    <th>Rise</th>
-                    <th>Set</th>
-                </tr>
-                </thead>
-            </table>
-        </article>
-            <article>
-                <header>Sun</header>
-                <table id="sunEphemeridesTable">
-                    <thead>
-                    <tr>
-                        <th>Event</th>
-                        <th>Time</th>
-                    </tr>
-                    </thead>
-                </table>
-            </article>
+  <article>
+    <form>
+      <div class="grid">
+        <div>
+          <label for="datePicker">Date</label>
+          <input type="date" id="datePicker" />
         </div>
+        <div>
+          <label for="timeRange">Time</label>
+          <div role="group" style="display: flex; align-items: center; gap: 1rem;">
+            <input type="range" id="timeRange" min="0" max="1440" value="0" step="1" />
+            <output id="timeLabel">00:00</output>
+            <button id="nowButton">Now</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <details>
+      <summary role="button" class="outline contrast">Location</summary>
+      <form>
+        <div class="grid">
+          <label>
+            Latitude:
+            <input type="number" step="0.00001" id="latitudeInput">
+          </label>
+          <label>
+            Longitude:
+            <input type="number" step="0.00001" id="longitudeInput">
+          </label>
+        </div>
+      </form>
+      <div id="map"></div>
+    </details>
+  </article>
+
+  <article>
+    <header>Sky Position</header>
+    <table id="solarSystemTable">
+      <thead>
+      <tr>
+        <th>Object</th>
+        <th>Altitude</th>
+        <th>Azimuth</th>
+        <th>Right Ascension</th>
+        <th>Declination</th>
+      </tr>
+      </thead>
+    </table>
+  </article>
+
+  <div class="grid">
+    <article>
+      <header>Ephemerides</header>
+      <table id="ephemeridesTable">
+        <thead>
+        <tr>
+          <th>Object</th>
+          <th>Rise</th>
+          <th>Set</th>
+        </tr>
+        </thead>
+      </table>
+    </article>
+    <article>
+      <header>Sun</header>
+      <table id="sunEphemeridesTable">
+        <thead>
+        <tr>
+          <th>Event</th>
+          <th>Time</th>
+        </tr>
+        </thead>
+      </table>
+    </article>
+  </div>
 
 
 </main>
 </body>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script type="module">
-    import {AstronomyJS} from "../dist/astronomy-js.es.js";
+  import { AstronomyJS } from "../dist/astronomy-js.es.js";
 
-    const solarSystemObjectsToDisplay = ["Sun", "Mercury", "Venus", "Mars",
-        "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
-    const initialLatitude = 51.477335;
-    const initialLongitude = -0.000874;
-    let astronomyJS = AstronomyJS.initialize(initialLatitude, initialLongitude);
+  const solarSystemObjectsToDisplay = ["Sun", "Mercury", "Venus", "Mars",
+    "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
+  const initialLatitude = 51.477335;
+  const initialLongitude = -0.000874;
+  let astronomyJS = AstronomyJS.initialize(initialLatitude, initialLongitude);
 
-    const latitudeInput = document.getElementById('latitudeInput');
-    const longitudeInput = document.getElementById('longitudeInput');
-    const solarSystemTable = document.getElementById('solarSystemTable');
-    const ephemeridesTable = document.getElementById('ephemeridesTable');
-    const sunEphemeridesTable = document.getElementById('sunEphemeridesTable');
-    latitudeInput.value = initialLatitude;
-    longitudeInput.value = initialLongitude;
-    latitudeInput.addEventListener('input', onLocationChange);
-    longitudeInput.addEventListener('input', onLocationChange);
+  const latitudeInput = document.getElementById("latitudeInput");
+  const longitudeInput = document.getElementById("longitudeInput");
+  const solarSystemTable = document.getElementById("solarSystemTable");
+  const ephemeridesTable = document.getElementById("ephemeridesTable");
+  const sunEphemeridesTable = document.getElementById("sunEphemeridesTable");
+  latitudeInput.value = initialLatitude;
+  longitudeInput.value = initialLongitude;
+  latitudeInput.addEventListener("input", onLocationChange);
+  longitudeInput.addEventListener("input", onLocationChange);
 
-    function updateInputs(latitude, longitude) {
-        latitudeInput.value = latitude.toFixed(5);
-        longitudeInput.value = longitude.toFixed(5);
-        onLocationChange();
+  function updateInputs(latitude, longitude) {
+    latitudeInput.value = latitude.toFixed(5);
+    longitudeInput.value = longitude.toFixed(5);
+    onLocationChange();
+  }
+
+  const map = L.map("map").setView([initialLatitude, initialLongitude], 13);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(map);
+
+  const marker = L.marker([initialLatitude, initialLongitude], { draggable: true }).addTo(map);
+
+  marker.on("dragend", function(_) {
+    const { lat, lng } = marker.getLatLng();
+    updateInputs(lat, lng);
+  });
+
+  map.on("click", function(e) {
+    const { lat, lng } = e.latlng;
+    marker.setLatLng([lat, lng]);
+    updateInputs(lat, lng);
+  });
+
+  function onLocationChange() {
+    const latitude = parseFloat(latitudeInput.value);
+    const longitude = parseFloat(longitudeInput.value);
+    if (!isNaN(latitude) && !isNaN(longitude)) {
+      marker.setLatLng([latitude, longitude]);
+      map.setView([latitude, longitude], map.getZoom());
+      astronomyJS.setLocation("Earth", latitude, longitude);
+      updateAllTilesWithTime(astronomyJS.getDate());
     }
+  }
 
-    const map = L.map('map').setView([initialLatitude, initialLongitude], 13);
+  function updateAllTilesWithTime(referenceDate) {
+    astronomyJS.setDate(referenceDate);
+    updateAstronomicalData();
+  }
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+  const now = new Date();
+  const datePicker = document.getElementById("datePicker");
+  datePicker.value = now.toISOString().slice(0, 10);
 
-    const marker = L.marker([initialLatitude, initialLongitude], {draggable: true}).addTo(map);
+  const timeRange = document.getElementById("timeRange");
+  const timeLabel = document.getElementById("timeLabel");
+  const nowButton = document.getElementById("nowButton");
 
-    marker.on('dragend', function (_) {
-        const {lat, lng} = marker.getLatLng();
-        updateInputs(lat, lng);
-    });
+  function minutesToHHMM(minutes) {
+    const hour = Math.floor(minutes / 60);
+    const minute = minutes % 60;
+    return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
+  }
 
-    map.on('click', function (e) {
-        const {lat, lng} = e.latlng;
-        marker.setLatLng([lat, lng]);
-        updateInputs(lat, lng);
-    });
+  function getMinutesSinceMidnight(referenceDate) {
+    return referenceDate.getHours() * 60 + referenceDate.getMinutes();
+  }
 
-    function onLocationChange() {
-        const latitude = parseFloat(latitudeInput.value);
-        const longitude = parseFloat(longitudeInput.value);
-        if (!isNaN(latitude) && !isNaN(longitude)) {
-            marker.setLatLng([latitude, longitude]);
-            map.setView([latitude, longitude], map.getZoom());
-            astronomyJS.setLocation("Earth", latitude, longitude);
-            updateAllTilesWithTime(astronomyJS.getDate());
-        }
-    }
-
-    function updateAllTilesWithTime(referenceDate) {
-        astronomyJS.setDate(referenceDate);
-        updateAstronomicalData();
-    }
-
+  function updateTimeToNow() {
     const now = new Date();
-    const datePicker = document.getElementById('datePicker');
     datePicker.value = now.toISOString().slice(0, 10);
+    const nowMinutes = getMinutesSinceMidnight(now);
+    timeRange.value = nowMinutes;
+    timeLabel.textContent = minutesToHHMM(nowMinutes);
+    updateAllTilesWithTime(now);
+  }
 
-    const timeRange = document.getElementById('timeRange');
-    const timeLabel = document.getElementById('timeLabel');
-    const nowButton = document.getElementById('nowButton');
-
-    function minutesToHHMM(minutes) {
-        const hour = Math.floor(minutes / 60);
-        const minute = minutes % 60;
-        return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-    }
-
-    function getMinutesSinceMidnight(referenceDate) {
-        return referenceDate.getHours() * 60 + referenceDate.getMinutes();
-    }
-
-    function updateTimeToNow() {
-        const now = new Date();
-        datePicker.value = now.toISOString().slice(0, 10);
-        const nowMinutes = getMinutesSinceMidnight(now);
-        timeRange.value = nowMinutes;
-        timeLabel.textContent = minutesToHHMM(nowMinutes);
-        updateAllTilesWithTime(now);
-    }
-
-    nowButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        updateTimeToNow();
-    });
-    timeRange.addEventListener('input', () => {
-        timeLabel.value = minutesToHHMM(parseInt(timeRange.value, 10));
-        updateAllTilesWithTime(getReferenceDateFromForm());
-    });
-    datePicker.addEventListener('input', () => {
-        updateAllTilesWithTime(getReferenceDateFromForm());
-    });
-
-    function formatDateToHHMM(referenceDate) {
-        return referenceDate ? referenceDate.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false,
-            }) : "-";
-    }
-
-    function getReferenceDateFromForm() {
-        const [year, month, day] = datePicker.value.split('-').map(Number);
-        const minutes = parseInt(timeRange.value, 10);
-        const hour = Math.floor(minutes / 60);
-        const minute = minutes % 60;
-        return new Date(year, month - 1, day, hour, minute);
-    }
-
-    function addValuesToTable(tableObject, rows) {
-        for (let i in rows) {
-            let row = document.createElement("tr");
-            let tableValues = rows[i];
-            for (let j in tableValues) {
-                const column = document.createElement("td");
-                column.appendChild(document.createTextNode(tableValues[j]));
-                row.appendChild(column);
-            }
-            tableObject.appendChild(row);
-        }
-    }
-
-    function updateAstronomicalData() {
-        while (solarSystemTable.rows.length > 1) {
-            solarSystemTable.deleteRow(1);
-        }
-        let solarSystemTableRows = [];
-        for (let i in solarSystemObjectsToDisplay) {
-            const objectName = solarSystemObjectsToDisplay[i];
-            let altitudeAzimuthCoordinates = astronomyJS.getAltitudeAzimuthCoordinatesForObject(objectName).toDegrees();
-            let rightAscensionDeclinationCoordinates = astronomyJS.getRightAscensionDeclinationCoordinatesForObject(objectName).toHours();
-            solarSystemTableRows.push([objectName, altitudeAzimuthCoordinates.latitude, altitudeAzimuthCoordinates.longitude, rightAscensionDeclinationCoordinates.longitude, rightAscensionDeclinationCoordinates.latitude]);
-        }
-        addValuesToTable(solarSystemTable, solarSystemTableRows);
-
-        while (ephemeridesTable.rows.length > 1) {
-            ephemeridesTable.deleteRow(1);
-        }
-        let ephemeridesTableRows = [];
-        for (let i in solarSystemObjectsToDisplay) {
-            const objectName = solarSystemObjectsToDisplay[i];
-            let rise = formatDateToHHMM(astronomyJS.getEphemerisDateForObject(objectName, astronomyJS.getDate(), "RISE"));
-            let set = formatDateToHHMM(astronomyJS.getEphemerisDateForObject(objectName, astronomyJS.getDate(), "SET"));
-            ephemeridesTableRows.push([objectName, rise, set]);
-        }
-        addValuesToTable(ephemeridesTable, ephemeridesTableRows);
-
-        while (sunEphemeridesTable.rows.length > 1) {
-            sunEphemeridesTable.deleteRow(1);
-        }
-        let sunEphemeridesTableRows = [];
-        sunEphemeridesTableRows.push(["Astronomical Twilight Start", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "ASTRONOMICAL_TWILIGHT_START"))]);
-        sunEphemeridesTableRows.push(["Nautical Twilight Start", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "NAUTICAL_TWILIGHT_START"))]);
-        sunEphemeridesTableRows.push(["Civil Twilight Start", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "CIVIL_TWILIGHT_START"))]);
-        sunEphemeridesTableRows.push(["Rise", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "RISE"))]);
-        sunEphemeridesTableRows.push(["Local Noon", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "TRANSIT"))]);
-        sunEphemeridesTableRows.push(["Set", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "SET"))]);
-        sunEphemeridesTableRows.push(["Civil Twilight End", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "CIVIL_TWILIGHT_END"))]);
-        sunEphemeridesTableRows.push(["Nautical Twilight End", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "NAUTICAL_TWILIGHT_END"))]);
-        sunEphemeridesTableRows.push(["Astronomical Twilight End", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "ASTRONOMICAL_TWILIGHT_END"))]);
-        addValuesToTable(sunEphemeridesTable, sunEphemeridesTableRows);
-
-    }
-
+  nowButton.addEventListener("click", (event) => {
+    event.preventDefault();
     updateTimeToNow();
+  });
+  timeRange.addEventListener("input", () => {
+    timeLabel.value = minutesToHHMM(parseInt(timeRange.value, 10));
+    updateAllTilesWithTime(getReferenceDateFromForm());
+  });
+  datePicker.addEventListener("input", () => {
+    updateAllTilesWithTime(getReferenceDateFromForm());
+  });
+
+  function formatDateToHHMM(referenceDate) {
+    return referenceDate ? referenceDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    }) : "-";
+  }
+
+  function decimalDegreesToDegreesMinutes(decimalDegrees) {
+    const sign = decimalDegrees < 0 ? "-" : "";
+    const absolute = Math.abs(decimalDegrees);
+
+    const degrees = Math.floor(absolute);
+    const minutes = (absolute - degrees) * 60;
+
+    return `${sign}${degrees}° ${minutes.toFixed(0)}′`;
+  }
+
+  function degreesToRightAscension(rightAscensionInDegrees) {
+    const normalizedDegrees = ((rightAscensionInDegrees % 360) + 360) % 360;
+    const totalHours = normalizedDegrees / 15;
+
+    const hours = Math.floor(totalHours);
+    const minutes = (totalHours - hours) * 60;
+
+    return `${hours}h ${minutes.toFixed(0)}m`;
+  }
+
+  function getReferenceDateFromForm() {
+    const [year, month, day] = datePicker.value.split("-").map(Number);
+    const minutes = parseInt(timeRange.value, 10);
+    const hour = Math.floor(minutes / 60);
+    const minute = minutes % 60;
+    return new Date(year, month - 1, day, hour, minute);
+  }
+
+  function addValuesToTable(tableObject, rows) {
+    for (let i in rows) {
+      let row = document.createElement("tr");
+      let tableValues = rows[i];
+      for (let j in tableValues) {
+        const column = document.createElement("td");
+        column.appendChild(document.createTextNode(tableValues[j]));
+        row.appendChild(column);
+      }
+      tableObject.appendChild(row);
+    }
+  }
+
+  function updateAstronomicalData() {
+    while (solarSystemTable.rows.length > 1) {
+      solarSystemTable.deleteRow(1);
+    }
+    let solarSystemTableRows = [];
+    for (let i in solarSystemObjectsToDisplay) {
+      const objectName = solarSystemObjectsToDisplay[i];
+      let altitudeAzimuthCoordinates = astronomyJS.getAltitudeAzimuthCoordinatesForObject(objectName);
+      let rightAscensionDeclinationCoordinates = astronomyJS.getRightAscensionDeclinationCoordinatesForObject(objectName);
+      solarSystemTableRows.push([
+        objectName,
+        decimalDegreesToDegreesMinutes(altitudeAzimuthCoordinates.altitude),
+        decimalDegreesToDegreesMinutes(altitudeAzimuthCoordinates.azimuth),
+        degreesToRightAscension(rightAscensionDeclinationCoordinates.rightAscension),
+        decimalDegreesToDegreesMinutes(rightAscensionDeclinationCoordinates.declination)
+      ]);
+    }
+    addValuesToTable(solarSystemTable, solarSystemTableRows);
+
+    while (ephemeridesTable.rows.length > 1) {
+      ephemeridesTable.deleteRow(1);
+    }
+    let ephemeridesTableRows = [];
+    for (let i in solarSystemObjectsToDisplay) {
+      const objectName = solarSystemObjectsToDisplay[i];
+      let rise = formatDateToHHMM(astronomyJS.getEphemerisDateForObject(objectName, astronomyJS.getDate(), "RISE"));
+      let set = formatDateToHHMM(astronomyJS.getEphemerisDateForObject(objectName, astronomyJS.getDate(), "SET"));
+      ephemeridesTableRows.push([objectName, rise, set]);
+    }
+    addValuesToTable(ephemeridesTable, ephemeridesTableRows);
+
+    while (sunEphemeridesTable.rows.length > 1) {
+      sunEphemeridesTable.deleteRow(1);
+    }
+    let sunEphemeridesTableRows = [];
+    sunEphemeridesTableRows.push(["Astronomical Twilight Start", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "ASTRONOMICAL_TWILIGHT_START"))]);
+    sunEphemeridesTableRows.push(["Nautical Twilight Start", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "NAUTICAL_TWILIGHT_START"))]);
+    sunEphemeridesTableRows.push(["Civil Twilight Start", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "CIVIL_TWILIGHT_START"))]);
+    sunEphemeridesTableRows.push(["Rise", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "RISE"))]);
+    sunEphemeridesTableRows.push(["Local Noon", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "TRANSIT"))]);
+    sunEphemeridesTableRows.push(["Set", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "SET"))]);
+    sunEphemeridesTableRows.push(["Civil Twilight End", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "CIVIL_TWILIGHT_END"))]);
+    sunEphemeridesTableRows.push(["Nautical Twilight End", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "NAUTICAL_TWILIGHT_END"))]);
+    sunEphemeridesTableRows.push(["Astronomical Twilight End", formatDateToHHMM(astronomyJS.getEphemerisDateForObject("Sun", astronomyJS.getDate(), "ASTRONOMICAL_TWILIGHT_END"))]);
+    addValuesToTable(sunEphemeridesTable, sunEphemeridesTableRows);
+
+  }
+
+  updateTimeToNow();
 </script>
 </html>
